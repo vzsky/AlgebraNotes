@@ -10,4 +10,12 @@ some did get checked to be wrong. I will not edit them and just provide them "as
 
 --- 
 
+Also, the template was taken from 
+[SenoirMars](https://github.com/SeniorMars/dotfiles/tree/master/latex_template)
+and modified, feel free to copy it forward in case you need, don't forget to check the OG for cool note taking tips. 
+
+--- 
+
 PRs are very appreciated, help fix my work!
+
+

@@ -1,0 +1,233 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{HW 9 - Modern Algebra MAS311}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Find the number of all Sylow 7-subgroups of $S_7$.
+  }  
+  \sol{
+    Notice that there are $6!$ elements of order $7$ given by counting an element in the form of $(1 a b c d e f)$. As an 
+    element in this form has order $7$, and no other element have order 7 if it is not written in this form. This is 
+    because when considering a disjoint cycle notation, the order of the element is determined by the lcm of the size of 
+    each disjoint cycles.
+
+    Next, a sylow 7-subgroups of $S_7$ has order 7 because $\abs{S_7} = 7!$. And every two distinct sylow subgroup are cyclic, 
+    thus they must intersects trivially. Since there is exactly $6!$ elements, and $6$ non-trivial elements in each cyclic
+    group, then there should be exactly $6!/6 = 5! = 120$ sylow 7-subgroups. 
+  } 
+
+  \qs{}{
+    Given $\sigma \in S_n$, we define a permutation $\tau: \tau = \sigma(n+1 \; n+2)$ if $\sigma$ is odd and 
+    $\tau = \sigma$ if $\sigma$ is even. Show that the morphism $S_n \to S_{n+2}$ by $\sigma \mapsto \tau$ is injective
+    and the image is contained in $A_{n+2}$. Conclude that any finite group is isomorphic to a subgroup of an
+    alternating group. 
+  }
+  \sol{
+    Firsly, define a morphism $\phi: S_n \to S_{n+2}$ by $\phi: \sigma \mapsto \tau$ as defined in the statement.
+    $\phi$ is a homomorphism as if $\sigma$ and $\sigma'$ are both even, then $\phi(\sigma\sigma') = \phi(\sigma)\phi(\sigma')$ 
+    trivially, if exactly one of them is even, without loss of generality, let $\sigma$ be odd and $\sigma'$ is even then 
+    $\phi(\sigma\sigma') = \sigma(n+1\; n+2)\sigma' = \phi(\sigma)\phi(\sigma')$. And if both of them are odd, then 
+    $\phi(\sigma\sigma') = \sigma\sigma' = \sigma(n+1 \; n+2)^2\sigma' = \sigma(n+1 \; n+2) \sigma'(n+1 \; n+2) = 
+    \phi(\sigma)\phi(\sigma')$. This verifies that $\phi$ is a homomorphism.
+
+    Consider that if $\sigma$ moves $x$ (to $y$), then $\phi(\sigma)$ must also moves $x$ (to $y$). So, if $\phi(\sigma)$ 
+    does not move any element (ie. identity), then the only possible $\sigma$ is the identity. 
+    Now, $\phi(id) = id$ since $id$ is an even permutation. 
+    Therefore, $\ker\phi = \set{id}$. Which proves that $\phi$ is injective. 
+
+    Next, the image $\im\phi$ is the set $\set{ \tau =  \begin{cases} \sigma & \text{ if $\sigma$ is even} \\ 
+        \sigma(n+1 \; n+2) & \text{ if $\sigma$ is odd} \end{cases}}$
+    Which is always even. Thus, $\im\phi$ must be a subset, and therefore a subgroup of $A_{n+2}$ as it is the image of $\phi$.
+
+    Lastly, as from the Cayley's theorem, there is an isomorphism from any finite group $G$ to a subgroup of $S_{\abs{G}}$. 
+    Let that isomorphism be $\psi$. Then, $\psi: G \to S_{\abs{G}}$ is an injective homomorphism. 
+    Consider a composition $\phi \circ \psi$. Then this homomorphism is an injective homomorphism of $G \to S_{\abs{G} + 2}$. 
+    Furthermore, the image of $\phi \circ \psi$ is a subgroup of $A_{\abs{G} + 2}$. Thus, $\psi \circ \phi$ is an injective 
+    homomorphism from $G$ to $A_{\abs{G} + 2}$. 
+
+    Therefore, since there is an injective homomorphism from $G$ to $A_n$, it follows that $G$ is isomorphic to a subgroup 
+    $\im(\phi \circ \psi)$ of an alternating group. 
+  }
+  
+  \qs{}{
+    Let $\sigma \in S_3 \backslash A_3$. Show that the automorphsim of $A_3$ given by conjugation by $\sigma$ is 
+    not an inner automorphism of $A_3$. 
+  }
+  \sol{
+    Firstly, consider that $A_3 = \set{id, (1 2 3), (1 3 2)}$ and $S_3 \backslash A_3 = \set{(1 2), (2 3), (1 3)}$.
+    Let $\psi_\sigma: \tau \mapsto \sigma \tau \sigma^{-1}$ for $\sigma \in S_3 \backslash A_3$
+    
+    With the following information.
+    \eqs{
+      (12)(1 2 3)(12) = (1 3 2) \quad &\text{ and }\quad (12)(1 3 2)(12) = (1 2 3) \\
+      (13)(1 2 3)(13) = (1 3 2) \quad &\text{ and }\quad (13)(1 3 2)(13) = (1 2 3) \\
+      (23)(1 2 3)(23) = (1 3 2) \quad &\text{ and }\quad (23)(1 3 2)(23) = (1 2 3)
+    }
+
+    Therefore, $\psi_{(12)}$, $\psi_{(23)}$, $\psi_{(13)}$ are an element of $\Aut(S_3)$. 
+
+    Next, an inner automorphism of $A_3$ is $\Inn(A_3) = \set{ \phi_\sigma  \mid  \sigma \in A_3 \text{ and }
+    \phi_\sigma : \tau \mapsto \sigma \tau \sigma^{-1}}$
+    As $\abs{A_3} = 3!/2 = 3$, then $A_3 \isom \ZMod[3]$. So $A_3$ is abelian, thus 
+    \[ \phi_\sigma : \tau \mapsto \sigma\tau\sigma^{-1} = \tau\sigma\sigma^{-1} = \tau \]
+    So, $\Inn(A_3)$ is trivial
+    Hence, $\sigma_{(12)}$, $\sigma_{(13)}$, $\sigma{(23)}$ are not an element of the inner automorphism as they are not 
+    the identity automorphism.
+    \vspace{2cm}
+  }
+
+  \qs{}{
+    Let $p$ and $q$ be a prime numbers. Show that any group of order $pq$ is solvable.
+  }
+  \sol{
+    Let a group $G$ be a group of order $pq$ where $p$ and $q$ are prime numbers.
+    If $p = q$, then $\abs{G} = p^2$. As $G$ is a $p$ group, then it is nilpotent, and the factor between the subgroups 
+    must be abelian (order $p$ or $p^2$). So $G$ must be solvable.
+
+    Assume without loss of generality that $p > q$. 
+    Let $H$ be a sylow subgroup of order $p$. Then there is $n_p \equiv 1 \pmod{p}$ subgroups where $n_p \vert q$. 
+    The only possible conclusion is that $n_p = 1$, since otherwise $n_p \not\vert q$, or $q = p+1$. 
+
+    Therefore, $H$ is a normal subgroup of $G$. So, $G/H$ is a group of order $q$. Since a group of order $p$ is cylic, and 
+    a group of order $q$ is also cyclic, then they must be abelian, then they must be solvable. Since a subgroup $H$ of $G$, 
+    and the quotient $G/H$ are both solvable, it must be the case that the group $G$ must also be solvable. 
+  }
+  
+  \qs{}{
+    Find the subgroup of all torsion elements in $\Real/\Int$. 
+  }
+  \sol{
+    Consider that an element of $G = \Real/\Int$ is $r + \Int$ for some $r \in \Real$. 
+    If $r$ is irregular, then for any integer $n$, $n(r + \Int) = nr + \Int$. Assuming that $nr$ is an integer yields that 
+    $nr = m$ for some integer $m$. Which means that $r = \frac{m}{n}$ is not an irregular number. Thus, is a contradiction. 
+    Therefore, $nr$ is not an integer, which means that $n(r + \Int) \ne \Int$ for any finite integer $n$. 
+    This means that $(r+\Int) \not\in Tors(\Real/\Int)$
+
+    Next, if $r$ is regular, then let $r = \frac{m}{n}$ without loss of generality. 
+    Consider that $n(r + \Int) = nr + \Int = m + \Int = \Int$, so the order of $(r + \Int)$ is less than or equal to $n$.
+    As the order is finite, then $r + \Int \in Tors(\Real/\Int)$
+
+    As a real number is either regular or irregular, it follows that $T = \set{r + \Int \mid r \in \Rat}$ is the subset of all 
+    torsion elements in $\Real/\Int$.
+
+    Lastly, it can be shown that the subset is a subgroup since if $\frac{n}{m} + \Int \in T$, and $\frac{u}{v} + \Int \in T$ 
+    then \[ (\frac{n}{m} + \Int) - (\frac{u}{v} + \Int) = \frac{n}{m}-\frac{u}{v} + \Int = \frac{nv - uv}{mv} + \Int \in T\]
+    In conclusion, $T$ is the subgroup of all torsion elements in $\Real/\Int$.
+  }
+
+  \qs{}{
+    Prove that if $\phi: K \to \Aut(H)$ is a nontrivial group homomorphism, then $H \rtimes_\phi K$ is nonabelian.
+  }
+  \sol{
+    If $\phi$ is nontrivial, then there exists an element $k \in K$ such that $\phi(k)$ is not trivial. Thus, there 
+    exists an element $h \in H$ such that $\phi(k)(h) \ne h$. 
+
+    For that element $k$ and $h$, consider $(h, e) \cdot (h, k) = (h\phi(e)(h), k) = (hh, k)$ since $\phi(e)$ must 
+    be the identity element in $\Aut(H)$. So, $\phi(e)(h) = h$. 
+
+    However, $(h, k)\cdot (h, e) = (h \phi(k)(h), ke) = (h\phi(k)(h), k) \ne (hh, k)$ as $\phi(k)(h) \ne h$ by 
+    construction. 
+
+    As $(h,e)\cdot(h,k) \ne (h,k)\cdot(h,e)$ and $(h,e)$ and $(h,k)$ are both an element of $H \rtimes_\phi K$. 
+    Therefore, the group $H \rtimes_\phi K$ is nonabelian.
+  }
+
+  \newcommand{\GL}{GL_n(\Real)}
+  \newcommand{\SL}{SL_n(\Real)}
+  \qs{}{
+    Show that $\GL \isom \SL \rtimes \Real^\times$.
+  }
+  \sol{
+    Firstly, $\SL$ is a subgroup of $\GL$. Furthermore, consider that for an element $g \in \GL$ 
+    and $s \in \SL$, $\det(gsg^{-1}) = \det(g)\det(s)\det(g^{-1}) = \det(s)$. Thus, $gsg^{-1} \in \SL$ be definition. 
+    So, $\SL$ is a normal subgroup of $\GL$.
+
+    Now, consider an isomorphism $\phi: \Real^\times \to \im\phi \subset \GL$ given by
+    $\phi: r \mapsto \mat{r & 0 & \cdots& 0 \\ 0 & 1 & \cdots& 0 \\ \vdots & & \ddots & & \\ 0 & 0 & \cdots & 1}$, 
+    of $\GL$. Then, $\phi$ is well-defined obviously, since $\phi(r) = \phi(r')$ implies that $r = r'$, as 
+    $r = (\phi(r))_{11} = (\phi(r'))_{11} = r'$ was required. Then, $\phi$ is a homomorphism as 
+    \[ \phi(rs) = \mat{rs & \cdots & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & 1 } = 
+      \mat{r & \cdots & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & 1 }\mat{s & \cdots & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & 1 } 
+      = \phi(r)\phi(s) \]
+    Next, if $\phi(r) = \phi(r')$, then $r = (\phi(r))_{11} = (\phi(r'))_{11} = r'$, thus $\phi$ is injective. 
+    Therefore, $\phi$ is an isomorphism. 
+
+    Now, consider an element $g \in \GL$, let $\abs{\det(g)} = r$ for some real number $r$, 
+    then there is a matrix $g'$ such that $g' \cdot \phi(r) = g$ given by diving each element in the first column of $g$ by $r$, 
+    Since $\det(g') \det(\phi(r)) = \det(g)$, then $\det(g') = 1$, so $g' \in \SL$, and $\phi(r) \in \im\phi$. 
+    Thus, $\GL \subset \SL\im\phi$. But as $\SL < \GL$ and $\im\phi < \GL$, it must be the case that $\GL = \SL\im\phi$
+
+    Next, consider $g \in \SL$ and $g \in \im\phi$. Then $\det(g) = 1$, and $g = \phi(r)$, therefore, $\det(\phi(r)) = r = 1$. 
+    Hence, it follows that $r = 1$. Thus, $\SL \cap \im\phi = \set{\phi(1) = I}$. 
+
+    Now, as $\SL \normSg \GL$, $\im\phi < \GL$, where the intersection is trivial and $\GL = \SL\im\phi$. It follows that 
+    $\GL \isom \SL \rtimes \im\phi$. Next, as $\im\phi \isom \Real^\times$, then $\GL \isom \SL \rtimes \Real^\times$. 
+  } 
+
+  \qs{}{
+    Explain why two groups $D_{24}$ and $S_4$ are not isomorphic. 
+  }
+  \sol{
+    An element in $D_{24}$ is of the form $r^if^j$, for $j = 0$ or $1$ and $i \in \set{0, \ldots, 11}$
+    If $j = 1$, then $r^if \cdot r^if = r^i f^2 r^{-i} = e$, so $r^if$ has order 2.
+    If $j = 0$, then the order of $r^i$ is $12/\gcd(i, 12)$. So, $\gcd(i, 12) = 3$ only when $i = 3, 9$.
+
+    Consider that there is only two elements $g \in D_{24}$, that has order $4$, which are $r^3$, $r^9$. 
+    But there is more than two elements of order 4 in $S_4$, for examples, $(1 2 3 4)$, $(1 3 2 4)$ and $(1 4 3 2)$. 
+  }
+
+  \qs{}{
+    Explain why two groups $\ZMod[12] \times \ZMod[4] \times \ZMod[3]$ and $\ZMod[6] \times \ZMod[6] \times \ZMod[4]$ 
+    are not isomorphic. 
+  }
+  \sol{
+    Consider if $(A \times C) \isom (B \times C)$, then since $C \isom C$, it follows that $A \isom B$. This is due to 
+    the fact that $\times$ and $\oplus$ behave similarly for finite groups, (and it is proven that 
+    $(G \oplus H) \isom (G' \oplus H')$ with $G \isom G'$ implies $H \isom H'$). 
+
+    Now, as $\ZMod[12] \times \ZMod[4] \times \ZMod[3]$ is isomorphic to $\ZMod[12] \times \ZMod[3] \times \ZMod[4]$ by a 
+    homomorphism $\phi: (a, b, c) \mapsto (a, c, b)$.
+
+    Assuming that $\ZMod[12] \times \ZMod[4] \times \ZMod[3]$ is isomorphic to $\ZMod[6] \times \ZMod[6] \times \ZMod[4]$ 
+    yields that $\ZMod[12] \times \ZMod[3]$ is isomorphic to $\ZMod[6] \times \ZMod[6]$.
+    However, the second one possess no element of order 12. As for $(a, b) \in \ZMod[6] \times \ZMod[6]$, it follows that 
+    $6(a, b) = (6a, 6b) = (0, 0)$. But the former possess at least one element of order 12, which is $(1, 0)$ as $6(1, 0) = 
+    (6, 0) \ne (0, 0)$, and $12(1, 0) = (0, 0)$
+
+    By contraposition, the two groups $\ZMod[12] \times \ZMod[4] \times \ZMod[3]$ and $\ZMod[6] \times \ZMod[6] \times \ZMod[4]$
+    must be non-isomorphic.
+  }
+
+  \qs{}{
+    Show that nonabelian groups $A_4$, $D_{12}$, and $\ZMod[3] \rtimes \ZMod[4]$ are not isomorphic.
+  }
+  \sol{
+    Firstly, consider between the group $A_4$ and $\ZMod[3] \rtimes \ZMod[4]$. 
+    It is evidence that $\ZMod[3]$ is a normal subgroup of $\ZMod[3] \rtimes \ZMod[4]$, and $\ZMod[3]$ is non-trivial. 
+    Therefore, the later group is not simple, but the first group is simple. Thus, they cannot be isomorphic.
+
+    Secondly, consider between the group $A_4$ and $D_{12}$. Notice that $\set{1, r, \ldots, r^5} \normSg D_{12}$ as 
+    for $fr^i \in D_{12} - \set{1, r, \ldots, r^5}$, it follows that 
+    \begin{align*} 
+      fr^i \set{1, r, \ldots, r^5} (fr^i)^{-1} &= fr^i \set{1, r, \ldots, r^5} r^{-i}f \\ 
+                                               &= \set{fr^ir^{-i}f, fr^i r r^{-i}f, \ldots, fr^i r^5 r^{-i} f} \\ 
+                                               &= \set{1, frf, fr^2f, \ldots, fr^5f} \\ 
+                                               &= \set{1, r^{-1}, r^{-2}, \ldots, r^{-5}} \\ 
+                                               &= \set{1, r, \ldots, r^5}
+    \end{align*}
+    So, $D_{12}$ has a non-trivial normal subgroup, thus is non-simple, but $A_4$ is simple, so there is no isomorphism between
+    the two. 
+
+    Lastly, between the group $D_{12}$ and $\ZMod[3] \rtimes \ZMod[4]$. Consider that for $fr^i \in D_{12}$, the order are all 
+    2. However, when considering element $(e,e) = (h,k)^2 = (h\phi(k)(h), k^2)$ of the later group, it must follow that 
+    $k$ is of order 2, which is only 2. Thus, there are AT MOST 3 elements (which are $(0, 2), (1, 2), (2, 2)$) of order 2 
+    in $\ZMod[3] \rtimes \ZMod[4]$. Therefore $D_{12}$ and $\ZMod[3] \rtimes \ZMod[4]$ cannot be isomorphic. 
+  }
+\end{document}

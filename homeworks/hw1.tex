@@ -1,0 +1,263 @@
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Modern Algebra MAS311}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\DeclareMathOperator*{\Gfour}{\mathbb{Z}/12\mathbb{Z}}
+\newcommand{\noZ}[1]{#1 \backslash \{0\}}
+
+\begin{document}
+
+  \qs{}{
+    Let $m, n, a_i$, and $1 \le i \le m$ be integers. \\
+    Prove that if $\gcd({a_i, n}) = 1$ for all $1 \le i \le m$, then $\gcd(a_1 \cdots a_m, n) = 1$.
+  }
+  \sol{
+    for m = 1, $\gcd(a_1, n) = 1$ then $\gcd(a_1, n) = 1$ obviously.
+    \clm[gcd_1]{
+      Ig $\gcd(a, n) = 1$ and $\gcd(b, n) = 1$ then $\gcd(ab, n) = 1$.
+      \pf{
+        If $\gcd(a, n) = 1$ and $\gcd(b, n) = 1$ then $\exists p,q,r,s \in \mathbb{N}$ such that $ap + nq = br + ns = 1$. 
+        \begin{align*}
+          1 &= (ap+nq)(br+ns) \\
+          &= (abpr+nbqr+nasp+nnqs) \\
+          &= ab (pr) + n (bqr+asp+nqs)
+        \end{align*}
+        Hence, $\gcd(ab, n) = 1$
+      }
+    }
+    From claim~\ref{clm:gcd_1}, the proposition holds at $m = 2$, by substituting $a$ with $a_1$ and $b$ with $a_2$. Then assuming that the argument holds for integer $k$. 
+    By assumption, $\gcd(a_1\cdots a_k, n) = 1$. Therefore, it is possible to substitute $a$ of claim~\ref{clm:gcd_1} with $a_1\cdots a_k$ and $b$ with $a_{k+1}$. 
+    \\ \\ Hence, the proposition holds true for all integer $m \ge 1$, for all integer $n$, by induction.
+  }
+  \qs{}{
+    Let $M_n(\Real) = \{n \times n \text{ real matrices}\}$. Define a relation $\sim$ on $M_n(\mathbb{R})$ as follow: \\
+    $A \sim B$ if there exists an invertible $C \in M_n(\Real)$ such that $A = CBC^{-1}$. Show that this relation is an equivalence relation. 
+  }
+  \sol{
+    The relation $\sim$ would be an equivalence relation if it is symmetric, reflexive, and transitive.
+    \begin{itemize}
+    \item \textbf{Reflexive:} There exists the identity matrix $I \in M_n(\Real)$. Since \[I^{-1} = I, \quad IA = AI = A\] for all matrices $A$, \[A = IAI^{-1}\] Therefore, $A \sim A$. 
+    \item \textbf{Symmetric:} Assume that for some $A, B \in M_n(\Real)$, $A \sim B$. Then it follows that \[\exists C, \, A = CBC^{-1}\] By multiplying $C$ and $C^{-1}$, \[C^{-1}AC = C^{-1}A{(C^{-1})}^{-1} = B\]
+    Since $C^{-1}$ is also an $n\times n$ matrix, $C^{-1} \in M_n(\Real)$. Hence, $B \sim A$.
+    \item \textbf{Transitive:} Assume for $X, Y, Z \in M_n(\Real)$, so that $X \sim Y$ and $Y \sim Z$. Then it follows that \[\text{there exists } C, D \text{ such that } X = CYC^{-1} ,\; Y = DZD^{-1}\] 
+    Then by substituting the second equation into the first, \[X = CDZD^{-1}C^{-1}\] Notice that $CD$ is an $n \times n$ matrix since both $C$ and $D$ are an $n\times n$ matrix.
+    Moreover, \begin{align*} 
+      CD \cdot D^{-1}C^{-1} 
+         &= C(DD^{-1})C^{-1} 
+      \\ &= CC^{-1} 
+      \\ &= I
+    \end{align*}
+    and \begin{align*}
+      D^{-1}C^{-1}\cdot CD
+         &= D^{-1}(C^{-1}C)D
+      \\ &= D^{-1}D
+      \\ &= I
+    \end{align*} 
+    by the associativity of matrix multiplication. So ${(CD)}^{-1} = D^{-1}C^{-1}$ by definition. Therefore, $X \sim Z$. 
+    \end{itemize}
+    As the relation is symmetric, reflexive, and transitive, it is an equivalence relation.
+  }
+  \qs{}{
+    Let $H$ be a non-empty subset of a group $G$. We define a relation on $G$ by $a \sim b$ if and only if $ab^{-1} \in H$. Prove that $H$ is a subgroup of $G$ if and only if the relation $\sim$ is an equivalence relation. 
+  }
+  \sol{
+    Let the operator of the group $G$ be $(\cdot)$, write briefly by juxtaposition. 
+    
+    ($\Longrightarrow$) Assume that $H$ is a subgroup of $G$. Then 
+    \begin{shift}
+      \begin{itemize}
+      \item \textbf{Reflexive:} Since $aa^{-1} = 1 \in H$, $a \sim a$ by definition.
+      \item \textbf{Symmetric:} Assuming that $a \sim b$, then $ab^{-1} \in H$. But since $ab^{-1}ba^{-1} = 1$, then $ba^{-1} \in H$. Which means that $b \sim a$. 
+      \item \textbf{Transitive:} Assuming that $a \sim b$, and $b \sim c$. Then $ab^{-1} \in H$ and $bc^{-1} \in H$. Since $H$ has closure over $(\cdot)$, then $ab^{-1}\cdot bc^{-1} = ac^{-1} \in H$. 
+      Thus, $a \sim c$ by definition.
+      \end{itemize}
+      Therefore, the relation $\sim$ is an equivalence relation.
+    \end{shift}
+
+    ($\Longleftarrow$) Assume that $\sim$ is an equivalence relation. Then
+    \begin{shift}
+      \begin{itemize}
+        \item \textbf{Closure:} Assuming that $a, b \in H$, then $1 \sim a$ and $1 \sim b^{-1}$. Hence, $a \sim b^{-1}$, which means that $ab \in H$.
+        \item \textbf{Associativity:} Since the operator $(\cdot)$ is associative over $G$. The restriction of the operator over $H$ must also be associative. 
+        \item \textbf{Identity:} Since $a \sim a$, then $aa^{-1} = 1 \in H$
+        \item \textbf{Inverse:} Assuming that $ab^{-1} \in H$, then $a \sim b$. Then $b \sim a$ by reflexivity. Therefore, $ba^{-1} \in H$. Note that $ba^{-1}ab^{-1} = 1 = ab^{-1}ba^{-1}$. 
+        Hence, ${(ab^{-1})}^{-1} = ba^{-1}$ by the definition.
+      \end{itemize}
+      Therfore, as $H$ is non-empty, $H$ is a subgroup of $G$.
+    \end{shift}
+  }
+  \qs{}{
+    Compute ${(\mathbb{Z} / 12 \mathbb{Z})}^{\times}$
+  }
+  \sol{
+    $\Gfour = \{\bar{0}, \ldots, \bar{11}\}$ where $\bar{n}$ is the equivalence class of integer $n$ modulo $12$.  
+    ${(\Gfour)}^\times$ is the subset of elements with inverse.
+    Consider that $\bar{1}$ is identity of multiplication since \[ \bar{1} \times \bar{n} = \bar{n} \times \bar{1} = \bar{n} \]
+    This is due to the fact that $\bar{n}$ is the equivalence class for $12m + n$ for some integer $m$, and that \[(12m + 1)(12k + n) = 12(12mk + k + mn) + n\]
+    \clm[prob4]{
+      if $\gcd(n, 12) \ne 1$ then $\bar{n} \notin {(\Gfour)}^\times$
+      \pf{
+        let $d = \gcd(n, 12)$ and $\bar{n}$ is the equivalence class of $12m + n$. But \[d \mid 12m + n\]
+        By assumption, $d \ne 1$. Now assume for contradiction that there exists $\bar{x}$ such that $\bar{x}\times\bar{n} = 1$. Then, 
+        \[ (12m + n)(12k + x) = (12q + 1) \] contradicts that $d \mid 12m + n$ since $d \nmid 12m + 1$
+        Therefore, there exists no inverse of $\bar{n}$, thus $\bar{n} \notin {(\Gfour)}^\times$.  
+      }
+    } 
+    Therefore, ${(\Gfour)}^\times = \{\bar{1}, \bar{5}, \bar{7}, \bar{11}\}$ as it is easy to see that $\bar{1}^2 = \bar{5}^2 = \bar{7}^2 = \bar{11}^2 = \bar{1}$
+  }
+  \qs{}{
+    (1) Let $G=\Real \backslash\{-1\}$. Define an operation - by $a \cdot b=a+b+a b$. Show that $(G, \cdot)$ is a group. \\ 
+    (2) Let $G=\{a+b \sqrt{11} \mid a, b \in \mathbb{Q}\}$ be a subset of $\Real$. Show that $(G \backslash\{0\}, \cdot)$ is a group, where $\cdot$ is the usual multiplication.
+  }
+  \sol{
+    \\ (1)
+    \begin{shift}
+      let $u, v, w \in G$. Then, 
+      \begin{itemize}
+        \item \textbf{Well-definedness:} Since addition and multiplication is well-defined in $\Real$, then $(\cdot)$ is well-defined since it is a composition of well-defined operators.
+        \item \textbf{Closure:} for $a, b \in \Real$, $ab, a+b \in \Real$ by the closure of addition and multiplication over real number.
+        Assuming that $a+b+ab = -1$ yields that
+        \begin{align*}
+          0 &= a + b + ab + 1 \\
+            &= a (1 + b) + (1 + b) \\
+            &= (a + 1) (b + 1)
+        \end{align*}
+        Therefore, if $ a \ne -1$ and $b \ne -1$, then $a \cdot b \ne -1$ Hence, $(\cdot)$ has a closure in $G$. 
+        \item \textbf{Associativity:} Consider $(u \cdot v) \cdot w$, 
+        \begin{align*}
+          (u \cdot v) \cdot w &= (u + v + uv) \cdot w
+                          \\ &= u + v + uv + w + uw + vw + uvw
+                          \\  &= u + (v + w + vw) + (uw + vw + uvw)
+                          \\  &= u + (v + w + vw) + u(v + w + vw)
+                          \\  &= u \cdot (v + w + vw)
+                          \\  &= u \cdot (v \cdot w)
+        \end{align*}
+        Hence, $(\cdot)$ is associative.
+        \item \textbf{Identity: } Consider $0 \in G$, and $0 \cdot u = 0 + u + 0u = u$, and $u \cdot 0 = u + 0 + u0 = u$. So, $0 \in G$ is the identity.
+        \item \textbf{Inverse: } Consider $u^{-1} = \frac{-u}{1+u}$. Then since $u \ne -1$, $u^{-1} \in G$. Morover,
+        \begin{align*}
+          u^{-1} \cdot u &= \frac{-u}{1+u} + u + \frac{-u}{1+u}u
+                      \\ &= \frac{u^2 - u^2 + u - u}{1+u}
+                      \\ &= 0
+        \end{align*}
+        And also, 
+        \begin{align*}
+          u \cdot u^{-1} &= u + \frac{-u}{1+u} + u\frac{-u}{1+u}
+                      \\ &= \frac{u^2 - u^2 + u - u}{1+u}
+                      \\ &= 0
+        \end{align*}
+        Therefore, $u^{-1}$, the inverse of $u$, exists in $G$. 
+      \end{itemize}
+      Hence, $(G, \cdot)$ is a group. 
+    \end{shift} 
+    (2) 
+    \begin{shift}
+      Let $u, v, w \in \noZ{G}$, and let $u = u_a + u_b\sqrt{11}$, $v = v_a + v_b\sqrt{11}$, and $w = w_a + w_b\sqrt{11}$ \\ 
+      for $u_a, u_b, v_a, v_b, w_a, w_b \in \mathbb{Q} $.Then,
+      \begin{itemize}
+        \item \textbf{Well-definedness: } Since $G \subset \Real$ and multiplication is well-defined under $\Real$, the operation must also be well-defined under $\noZ{G}$.  
+        \item \textbf{Closure: } 
+        \begin{align*}
+          uv &= (u_a + \sqrt{11}u_b)(v_a + \sqrt{11}v_b)
+          \\ &= u_a v_a + u_a v_b \sqrt{11} + u_b v_a \sqrt{11} + 11 u_b v_b 
+          \\ &= (u_a v_a + 11 u_b v_b) + (u_a v_b + u_b v_a)\sqrt{11}
+        \end{align*}
+        Since $u_a v_a + 11 u_b v_b \in \mathbb{Q}$ and $u_a v_b + u_b v_a \in \mathbb{Q}$. Moreover, both term cannot be $0$ simultaneously. Thus, $\noZ{G}$ has a closure. 
+        \item \textbf{Identity: } Consider $1 \in \noZ{G}$ and that $1u = u1 = u_a + \sqrt{11}u_b = u$. So $1 \in \noZ{G}$ is the identity.
+        \item \textbf{Inverse: } Consider $x$ for each fixed $u$, such that \[x = \frac{-u_a}{-u_a^2 + 11 u_b^2} + \frac{u_b}{-u_a^2 + 11 u_b^2}\sqrt{11}\]
+        It is easy to verify that $x \in \noZ{G}$. Then, it will follow that 
+        \begin{align*}
+          xu &= \left(\frac{-u_a}{-u_a^2 + 11 u_b^2} + \frac{u_b}{-u_a^2 + 11 u_b^2}\sqrt{11}\right) (u_a + u_b\sqrt{11})
+          \\ &= \left(\frac{-u_a^2 + 11 u_b^2 + \sqrt{11}(u_a u_b - u_b u_a)}{-u_a^2 + 11u_b^2}\right) 
+          \\ &= 1 + 0\sqrt{11} = 1
+        \end{align*}
+        And since $(\cdot)$ is commutative $ux = xu = 1$, Therefore, $u^{-1} = x$ by definition. 
+      \end{itemize}
+      Hence, $\noZ{G}$ is a group under multiplication.
+    \end{shift} 
+  }
+  \qs{}{
+    Show that $\mathbb{Z} / n \mathbb{Z}$ with multiplication is not a group for $n \geq 2$.
+  }
+  \sol{
+    for $n \ge 2$, notice that \[\forall \bar{a} \in \mathbb{Z} / n \mathbb{Z}, \quad \bar{0} \times \bar{a} = \bar{a} \times \bar{0} = \bar{0}\]
+    Therefore, the inverse of $\bar{0}$ does not exists. Therefore, $(\mathbb{Z}/n\mathbb{Z}, \times)$ is not a group
+  }
+  \qs{}{
+    Let $G=\left\{g \in \mathbb{C} \mid g^n=1\right.$ for some $\left.n \in \mathbb{N}\right\}$. Show that $G$ with multiplication is a group.
+  }
+  \sol{
+    let $u, v, w \in G$ and $n, m, k \in \mathbb{N}$ such that $u^n = v^m = w^k = 1$. And let $\cdot$ denotes the multiplication operator.
+    Firstly, $G$ contains $1$ as $1^1 = 1$. Therefore $G$ is not empty. Note that the multiplication operation is well-defined on $\mathbb{C}$, therefore, it is well-defined on $G$. 
+    \begin{itemize}
+      \item \textbf{Closure:} ${(uv)}^{nm} = u^{nm}v^{nm} = 1^m1^n = 1$. Therefore, $uv \in G$.
+      \item \textbf{Associative:} The multiplication of complex number is associative, Therefore, it is associative on the well-defined restriction of the operator.
+      \item \textbf{Identity:} $\exists 1\in G$ since $1\in\mathbb{C}, \, 1^1 = 1$. And by the multiplication of complex number, $1u = u1 = u$ for all $u\in G \subset \mathbb{C}$
+      \item \textbf{Inverse:} $\forall u\in G$ let $n_u \in \mathbb{N}$ such that $u^{n_u} = 1$. If $n_u = 1$, then $u = 1$ is the identity.
+      For $n_u > 1$, consider $u^{(n_u-1)(n_u)} = u^{(n_u)(n_u-1)} = 1^{n_u-1} = 1$, so $u^{n_u-1} \in G$. But also, $u^{n_u-1} \cdot u = u \cdot u^{n_u-1} = u^{n_u} = 1$. So $u^{-1} = u^{n_u-1}$ is the inverse of $u$.
+    \end{itemize}
+    Since $G$ is a non-empty set and $(G, \cdot)$ has all the group properties. $(G, \cdot)$ is a group.
+  }
+  \qs{}{
+    Given two groups $G$ and $H$, we denote their Cartesian product by $G \times H$ whose elements are of the form $(g, h)$ for $g \in G$ and $h \in H$. Show that the product $G \times H$ with an operation given by $(g, h)\left(g^{\prime}, h^{\prime}\right):=\left(g g^{\prime}, h h^{\prime}\right)$ is a group.
+  }
+  \sol{
+    Denote a well-defined operator $(\star)$ of group $G$, $(\times)$ of group $H$, and a new operator $(\cdot)$ of $G \times H$. However, the operator might be briefly written as juxtaposition.\\
+    For $G \times H$ to be a group, it must satisfies all the following properties.
+    \begin{itemize}
+      \item \textbf{Non-emptiness: } Since, $G$ and $H$ are both group, they are both non-empty. Therefore, the Cartesian product of $G$ and $H$ must contain at least one element: ie. $(e_g, e_h)$, denoting the identity of $G$ and $H$ respectively.
+      \item \textbf{Well-defined: } Note that $(g, h)\cdot(g', h') = (g\star g', h \times h')$. And if $(g, h) = (a, b)$ and $(g', h') = (a', b')$ then $(a, b)\cdot (a', b') = (a\star a', b \times b')$ \\
+      But then, $g = a, g' = a', h = b, h' = b'$, so by the well-definedness of $\star$ and $\times$, $g\star g' = a\star a'$ and $h \times h' = b \times b'$. Therefore, the operator $(\cdot)$ is well-defined.
+      \item \textbf{Associativity: } For $(a, b), (g, h), (x, y) \in G \times H$, 
+      \begin{align*}
+        (a, b)((g, h)(x, y)) &= (a, b)(gx, hy) 
+                          \\ &= (a(gx), b(hy))
+                          \\ &= ((ag)x, (bh)y) \qquad \text{by associativity of group $G$ and $H$}
+                          \\ &= (ag, bh)(x, y)
+                          \\ &= ((a, b)(g, h))(x, y)
+      \end{align*}
+      Therefore, $(\cdot)$ is associative.
+      \item \textbf{Identity: } Consider $(e_g, e_h)$ where $e_g$ is the identity element of group $G$ and $e_h$ is that of group $H$.
+      Then for $(a, b) \in G \times H$, \[ (e_g, e_h) \cdot (a, b) = (e_g a, e_h b) = (a, b) = (a e_g, b e_h) = (a, b) \cdot (e_g, e_h) \]
+      \item \textbf{Inverse: } For $(g, h) \in G\times H$, $g \in G$ and $h \in H$. Therefore, there exists $g^{-1} \in G$ and $h^{-1} \in H$ such that $gg^{-1} = e_g$ and $hh^{-1} = e_h$.
+      By that reason, $(g^{-1}, h^{-1}) \in G\times H$. Consider
+      \[ (g, h) \cdot (g^{-1}, h^{-1}) = (gg^{-1}, hh^{-1}) = (e_g, e_h) \]
+      \[ (g^{-1}, h^{-1}) \cdot (g, h) = (g^{-1}g, h^{-1}h) = (e_g, e_h) \]
+      Therefore, $(g^{-1}, h^{-1}) = {(g, h)}^{-1}$. 
+    \end{itemize}
+    Hence, $G \times H$ is a group with the operation $(\cdot)$.
+  }
+  \qs{}{
+    Let $G$ be a group. Show that $((a b) c) d=a(b(c d))$ for all $a, b, c, d \in G$.
+  }
+  \sol{
+    Let $a, b, c, d \in G$. Then, 
+    \begin{align*}
+         a b \in G           & \qquad \text{by closure of $G$}
+      \\ c d \in G           & \qquad \text{by closure of $G$}
+      \\ ((ab)c)d = (ab)(cd) & \qquad \text{by associativity}
+      \\ a(b(cd)) = (ab)(cd) & \qquad \text{by associativity}
+    \end{align*}
+    Therefore, $((ab)c)d = a(b(cd))$. 
+  }
+  \qs{}{
+    Let $G$ be the quaternion group $Q_8$. Find two subgroups $H$ and $K$ of $G$ such that their union $H \cup K$ is not a subgroup of $G$.
+  }
+  \sol{
+    Let $G = \{\pm1, \pm i, \pm j, \pm k\}$ be the quaternion group. Let $H = \{\pm 1, \pm i \}$ and $K = \{\pm1, \pm j\}$.
+    Then for $H$, 
+    \begin{itemize}
+      \item \textbf{Well-definedness: } Since the operator is the restriction from a group operator, the operator must be well-defined.
+      \item \textbf{Closure: } For all $x \in H$, \[1x = x1 = x\] \[i^2 = -1, \quad {(-1)}^2 = 1, \quad {(-i)}^2 = -1\] \[(-1)(i) = i(-1) = -i, \quad (-1)(-i) = (-i)(-1) = i \] \[(-i)i = i(-i) = 1\] by the definition. 
+      \item \textbf{Associativity: } Since the operator is associative in $G$, the restriction must also be associative. 
+      \item \textbf{Identity: } $1 \in H$ is the identity element by definition.
+      \item \textbf{Inverse: } The inverse of $1, -1, i, -i$ is $1, -1, -i, i$, respectively.
+    \end{itemize}
+    Therefore, $H$ is a subgroup of $G$. With similar arguments, $K$ is also a subgroup of $G$. 
+    \\ 
+    Consider $H \cup K = \{\pm 1, \pm i, \pm j\}$, The operator $(\cdot)$ of $G$ does not have closure under $H \cup K$ since $i, j \in H \cup K$ but $i\cdot j = k \notin H \cup K$. Therefore, $H \cup K$ is not a subgroup of $G$. 
+  }
+\end{document}

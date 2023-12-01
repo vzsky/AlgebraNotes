@@ -1,0 +1,294 @@
+% chktex-file 44
+% chktex-file 8
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{HW 2 - Modern Algebra MAS311}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Let $H$ and $K$ be subgroups of $G$. 
+    Prove that $H \cup K$ is a subgroup if and only if $H \subset K$ or $K \subset H$.
+  }
+  \sol{
+    Notice that if $H \subset K$ then $H \cup K = K$ or if $K \subset H$ then $H \cup K = H$
+    \\
+    $(\Longrightarrow)$~: 
+      \begin{shift}
+        Assume that $H \not\subset K$ and $K \not\subset H$, where $H$ and $K$ are subgroup of $G$, 
+        Then, find an element $h \in H$ such that $h \notin K$ and $k \in K$ such that $k \notin H$.
+        It is clear that the elements exists as both $H$ and $K$ are not a subset of the other one.
+
+        Consider $h \cdot k$, if $h \cdot k = \alpha$ for some $\alpha \in H$, 
+        then we get that $h\cdot k = \alpha = hh^{-1}\alpha = h(h^{-1}\alpha)$ which means that $k = h^{-1}\alpha \in H$.
+        However, it contradicts with the assumption, so $h \cdot k \notin H$
+
+        Consider in the same manner that $h \cdot k = \beta$ for some $\beta \in K$,
+        then we get that $h \cdot k = \beta = \beta k^{-1} k = (\beta k^{-1}) k$ which means that $h ^ \beta k^{-1} \in K$. 
+        Which, again, contradicts with the assumption, so $h \cdot k \notin K$
+
+        Therefore, $h \cdot k \notin H \cup K$, which asserts that $H \cup K$ cannot be a subgroup of $G$ by contraposition.
+      \end{shift}
+    $(\Longleftarrow)$~:
+      \begin{shift}
+        Since either of $K \cup H = K$ or $H \cup K = H$ holds and that $H$ and $K$ are both subgroup,
+        then it follows that $K \cup H$ must be a subgroup of $G$
+      \end{shift}
+  }
+  \qs{}{
+    Prove that the subset $T_n(\Real) = \set{A \in GL_n(\Real) \mid A_{ij} = 0 \text{ if } i < j}$
+    of the group $GL_n(\Real)$ is a subgroup.
+  }
+  \sol{
+    Firstly, $T_n(\Real)$ is not empty, as 
+    $I_n = 
+      \begin{bmatrix}
+        1 & 0 & \cdots & 0 \\
+        0 & \ddots &   & 0 \\
+        \vdots &   & 1 & 0 \\
+        0 & \cdots & 0 & 1
+      \end{bmatrix} \in T_n(\Real)$
+    \clm{
+      $\forall A, B \in T_n(\Real), \; AB \in T_n(\Real)$
+      \pf{
+        Firstly, From the definition, for all $A, B \in T_n(\Real), \, A_{ij} = B_{ij} = 0$ for $i < j$. 
+        And \[{(AB)}_{ij} = \sum_{k=1}^n A_{ik}B_{kj}\] by the definition of matrix multiplication.
+        So if $i < k$, then $A_{ik} = 0$ and if $k < j$, then $B_{kj} = 0$. 
+        But either $i < k$ or $k < j$ holds if $i < j$. Therefore, 
+        \[\text{for } i < j, \; {(AB)}_{ij} = \sum_{k=1}^n 0\]
+        Which proves that $AB \in T_n(\Real)$
+      }
+    }
+    \clm{
+      $\forall A \in T_n(\Real), \;A^{-1} \in T_n(\Real)$
+      \pf{
+        Let $M$ be an $n\times n$ matrix, and $M^{-1}$ be the inverse. 
+        Then, \[ {(M^{-1}M)}_{ij} = \sum_{k=1}^n M^{-1}_{ik}M_{kj} = I_{ij} \]
+        So for $j > i$, \[ 0 = \sum_{k=1}^n M^{-1}_{ik}M_{kj} = \sum_{k=1}^i M^{-1}_{ik}M_{jk} + \sum_{k=i+1}^{n} M^{-1}_{ik}M_{jk} = \sum_{k=i+1}^{n} M^{-1}_{ik}M_{jk} \]
+
+        If an inverse of the matrix would exists, then it would have to be in the form that $\forall j>i \; M^{-1}_{ij} = 0$, 
+        which means that it must need to be an element of $T_n(\Real)$
+      }
+    }
+    Since $\forall A, B \in T_n(\Real)$, $A^{-1} \in T_n(\Real)$ and $AB \in T_n(\Real)$, 
+    then $T_n(\Real)$ is a subgroup of $GL_n(\Real)$
+  }
+  \qs{}{
+    Let $D_{2n}$ denote the dihedral group of order $2n$. 
+    Show that $\set{g \in D_{2n} \mid g^2 = 1}$ is not a subgroup of $D_{2n}$.
+  }
+  \sol{
+    Let $S(G)$ denotes the set $\set{g \in G \mid g^2 = 1}$ for simplicity.
+    \\ Consider only for $n\ge 3$, then \[S(D_{2n}) = \set{1, f, fr, \ldots, fr^{n-1}, (r^{n/2} \text{ if n is even})} \subset D_{2n}\]
+    By the definition of the operator $(\cdot)$ of $D_{2n}$, $f \cdot fr = r \notin S(D_{2n})$.
+    Therefore, $S(D_{2n})$ does not have closure over $\cdot$. Which means that $S(D_{2n})$ is not a subgroup of $D_{2n}$
+  }
+  \qs{}{
+    Show that $GL_n(F)$ is non-abelian for any $n \ge 2$ and any field $F$. 
+  }
+  \sol{
+    Notice that $GL_n(F)$ is a group, since it has closure, associative, has identity $I_n$ and has inverse.
+    \clm[zeromul]{
+      $a \times 0 = 0$ 
+      \pf{ since $a \times 0 = a \times (0 + 0) = (a \times 0) + (a \times 0)$ }
+    }
+    For $n = 2$, let $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$ and $B = \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}$
+    Then, $AB = \begin{bmatrix} 1 + 1 & 1 \\ 1 & 1 \end{bmatrix}$ but $BA = \begin{bmatrix} 1 & 1 \\ 1 & 1+1 \end{bmatrix}$.
+    Therefore, $\cdot$ is commutative if and only if $1+1 = 1$, but $1 + 1 \ne 1$ since $1$ cannot be the additive identity.
+    So $GL_2(F)$ is non-abelian, since it is non-commutative.
+    \\ Assume for induction, that $GL_n(F)$ is non-abelian, and that $AB \ne BA$.
+    Then we can construct \[A' = \begin{bmatrix} A & 0 \\ 0 & 1 \end{bmatrix}
+    \text{ and } B' = \begin{bmatrix} B & 0 \\ 0 & 1 \end{bmatrix}\]
+    Then \[A'B' = \begin{bmatrix} AB & 0 \\ 0 & 1 \end{bmatrix}
+    \text{ but } B'A' = \begin{bmatrix} BA & 0 \\ 0 & 1\end{bmatrix}\]
+    However, $AB \ne BA$, so $A'B' \ne B'A'$ certifies that $GL_n(F)$ is not commutative.
+    \\ By induction, $GL_n(F)$ is non-commutative, hence, they are non-abelian groups.
+  }
+  \qs{}{
+    Suppose that $G$ is a group such that ${(gh)}^2 = g^2h^2$ for all $g, h \in G$. 
+    Show that $G$ is abelian 
+  }
+  \sol{
+    For a group $G$ we get that $g^{-1} \in G$ for $g \in G$.
+    Therefore, $\forall g, h$ \[hg = g^{-1}ghghh^{-1} = g^{-1}{(gh)}^2h^{-1} = g^{-1}(g^2h^2)h^{-1} = gh\]
+    So, $\forall g, h \in G, \; gh = hg$, which means that $G$ is an abelian group.
+  }
+  \qs{}{
+    Prove that the multiplicative groups $\Real-\set{0}$ and $\mathbb{C}-\set{0}$ are not isomorphic.
+  }
+  \sol{
+    Notice that $i = \sqrt{-1} \in \mathbb{C}-\set{0}$ and the order of $i$ is $4$ since $i \ne 1$, $i^2 = -1 \ne 1$, $i^3 = -i \ne 1$ and $i^4 = 1$
+
+    However, suppose that there is an element $g \in \Real - {0}$ such that $g^4 = 1$, then $g^2 = 1$, which will result in $g$
+    having the order 2, or $g^2 = -1$. However, there is no such $g \in \Real - \set{0}$ such that $g^2 = -1$.
+    Therefore, there cannot exists an isomorphism $\phi: \mathbb{C} - {0} \to \Real-\set{0}$, since if there is such $\phi$, then ${\phi(i)}^2 = \phi(-1)$, 
+    which means that $\phi(i) \notin \Real-\set{0}$.
+
+    Hence, there is no such isomorphism between $\Real-\set{0}$ and $\mathbb{C}-\set{0}$, so they are not isomorphic.
+  }
+  \qs{}{Let $G$ be a finite group and let $x$ and $y$ be distinct elements of order 2 in $G$ that generate $G$. 
+    Prove that $G \isom D_{2n}$, where $n = |xy|$
+  }
+  \sol{
+    For distinct $x$, $y$ of order 2 that generate $G$, notice that $x^{-1} = x$ and $y^{-1} = y$.
+
+    \clm[D2n-normalform]{
+      All element $g \in G$ can be written as $x^p{(xy)}^k$ for some $k \in \Nat$ such that $0 \le k \le n-1$ and $p \in \set{0,1}$. 
+      \pf{
+        Consider if there is some element $g$ that contain consecutive $x$, say $g = axxb$ for certain $a, b \in G$, then $g = axxb = a1b = ab$. 
+        Similar argument is valid to show that there will be no consecutive $y$.
+
+        So an element $g \in G$ must be a string of alternating $x$ and $y$. If the string starts with $x$, then it is of the form ${(xy)}^k$, 
+        and if it starts with a $y$, then it is of the form $x{(xy)}^k$ since $x(xy) = y$. Note that it will be shown later on that the string will never terminate on $x$
+
+        Additionally, for an element that terminates with $x$, or is in the form of $g = x^{p}{(xy)}^k y$ for some $k \in \Nat$ and $p \in \set{0, 1}$, consider 
+        $y {(xy)}^{n-k} {(xy)}^k y = 1$, so $y {(xy)}^{n-k} = {(xy)}^k y$, which implies $x^p {(xy)}^k y = x^{1-p} {(xy)}^{n-k+1}$
+        shows the equivalent to the mentioned form
+      }
+    }
+
+    So, 
+    \[\forall g \in G \, \exists k \in \Nat, 0 \le k \le n-1, \quad g = x^p{(xy)}^k  \]
+    where $p$ is either 1 or 0
+
+    \clm{
+      Furthermore, the representation mentioned above is unique for all element $g \in G$. 
+      \pf{
+        Assume that for $g \in G$, $g = x^p{(xy)}^k = x^{p'}{(xy)}^{k'}$, then 
+        \[x^{p-p'} {(xy)}^{k-k'} = 1\]
+        So, if $p \ne p'$, then ${(xy)}^{k-k'} = x$, which is impossible. 
+        Since $xy \ne x$ and $xy \ne y$, and ${(xy)}^2 = x(yxy) \ne x(1)$ since $y(xy) \ne y(y)$, 
+        and inductively for all integer $m$
+        
+        Otherwise, if $p = p'$, then ${(xy)}^{k-k'} = 1$, but $0 \le k-k' \le n-1$, so $k-k' = 0$, 
+        otherwise, $n$ is not the order of $xy$. 
+        Therefore, $p = p'$ and $k = k'$.
+      }
+    }
+
+    Then consider a homomorphism $\phi: G \to D_{2n}$ such that 
+    $\phi: x{(xy)}^n \mapsto fr^n$ and $\phi: {(xy)}^n \mapsto r^n$, for an $r$ and $f$ in $D_{2n}$
+
+    Since the representation of $g \in G$ as $x^p {(xy)}^k$ for $p \in \set{0, 1}, k \in \Nat$ is unique, then $\phi$ is well-defined and injective. 
+    And since a representation of $d \in D_{2n}$ as $f^p r^k$ for $p \in \set{0, 1}, k \in \Nat$ is also unique in similar manner, then $\phi$ is surjective. 
+
+    Therefore, $\phi$ is an isomorphism that asserts $G \isom D_{2n}$
+  }
+  \qs{}{
+    Let $\sigma \in S_8$ be a permutation such that 
+    \[\sigma(1) = 3, \sigma(2) = 6, \sigma(3) = 4, \sigma(4) = 1, \sigma(5) = 8, \sigma(6) = 2, \sigma(7) = 5, \sigma(8) = 7\]
+    Express this permutation as a product of disjoint cycles and a product of transpositions.
+  }
+  \sol{
+    Consider $\sigma^* = (1 3 4)\circ(2 6)\circ(5 8 7)$, where $\circ$ denotes composition and $\phi = (a_1 a_2 \ldots a_n)$ denotes a cyclic permutation of size $n$ such that
+    \[ \phi(a_1) = a_2,\; \phi(a_2) = a_3,\; \ldots,\; \phi(a_n) = a_1 \quad \text{and } \phi(x) = x \text{ for other $x \ne a_i$ }\]
+    Therefore, it is trivial to check that $\sigma_*$ satisfies that condition of $\sigma$ in the statement. 
+    As 
+    \begin{align*}
+      \sigma^*(1) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (1) = [(1 3 4)\circ(2 6)](1) = [(1 3 4)](1) = 3
+    \\\sigma^*(2) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (2) = [(1 3 4)\circ(2 6)](2) = [(1 3 4)](6) = 6
+    \\\sigma^*(3) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (3) = [(1 3 4)\circ(2 6)](3) = [(1 3 4)](3) = 4
+    \\\sigma^*(4) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (4) = [(1 3 4)\circ(2 6)](4) = [(1 3 4)](4) = 1
+    \\\sigma^*(5) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (5) = [(1 3 4)\circ(2 6)](8) = [(1 3 4)](8) = 8
+    \\\sigma^*(6) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (6) = [(1 3 4)\circ(2 6)](6) = [(1 3 4)](2) = 2
+    \\\sigma^*(7) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (7) = [(1 3 4)\circ(2 6)](5) = [(1 3 4)](5) = 5
+    \\\sigma^*(8) = [(1 3 4)\circ(2 6)\circ(5 8 7)] (8) = [(1 3 4)\circ(2 6)](7) = [(1 3 4)](7) = 7
+    \end{align*}
+    Notice that all of the cycles are disjoint.
+    Furthermore, a cycle $(1 3 4)$ is equivalent to a composition of transpositions $(1 4)\circ(1 3)$ 
+    and also $(5 8 7)$ is equivalent to a composition of transpositions $(5 7)\circ(5 8)$. I shall prove the claim
+    \clm{
+      a cycle $(a b c)$ is the same permutation as the composition $(a c)\circ(a b)$
+      \pf{
+        let $p$ be a permutation of $(a c)\circ(b c)$. Then the followings holds
+        \begin{align*}
+           p(a) &= [(a c)\circ(a b)] (a) = [(a c)](b) = b
+        \\ p(b) &= [(a c)\circ(a b)] (b) = [(a c)](a) = c
+        \\ p(c) &= [(a c)\circ(a b)] (c) = [(a c)](c) = a
+        \\ \forall x \notin \set{a, b, c} \; p(x) & = [(a c)\circ(a b)] (x) = [(a c)](x) = x
+        \end{align*}
+        which agrees with the definition of $(a b c)$, therefore $p = (a b c)$.
+      }
+    }
+  Thus, $(1 3 4)\circ(2 6)\circ(5 8 7) = (1 4)\circ(1 3)\circ(2 6)\circ(5 7)\circ(5 8)$.
+  And it is possible to verify that $(1 4)\circ(1 3)\circ(2 6)\circ(5 7)\circ(5 8)$ satisfies the condition of $\sigma$ in the statement.
+  }
+  \qs{}{
+    Write out multiplication tables for $D_6$ and $S_3$. Do they have the same structure?
+  }
+  \sol{
+    Note that the multiplication table would be written so that the first column goes to the right hand side of the binary operator.
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{ |c|c c c c c c| }
+        \hline
+        $\times$ & $e$ & $r$ & $r^2$ & $f$ & $fr$ & $fr^2$ 
+      \\\hline
+         $e$     & $e$ & $r$ & $r^2$ & $f$ & $fr$ & $fr^2$
+      \\ $r$     & $r$ & $r^2$ & $e$ & $fr^2$ & $f$ & $fr$
+      \\ $r^2$   & $r^2$ & $e$ & $r$ & $fr$ & $fr^2$ & $f$ 
+      \\ $f$     & $f$ & $fr$ & $fr^2$ & $e$ & $r$ & $r^2$
+      \\ $fr$    & $fr$ & $fr^2$ & $f$ & $r^2$ & $e$ & $r$
+      \\ $fr^2$  & $fr^2$ & $f$ & $fr$ & $r$ & $r^2$ & $e$
+      \\\hline
+      \end{tabular}
+      \caption{the multiplication table of $D_6$}\label{tab:mulD}
+    \end{table}
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{ |c|c c c c c c| }
+        \hline
+        $\times$    & $I$ & $(1 2 3)$ & $(1 3 2)$ & $(1 2)$ & $(2 3)$ & $(1 3)$ 
+      \\\hline
+         $I$        & $I$ & $(1 2 3)$ & $(1 3 2)$ & $(1 2)$ & $(2 3)$ & $(1 3)$
+      \\ $(1 2 3)$  & $(1 2 3)$ & $(1 3 2)$ & $I$ & $(1 3)$ & $(1 2)$ & $(2 3)$
+      \\ $(1 3 2)$  & $(1 3 2)$ & $I$ & $(1 2 3)$ & $(2 3)$ & $(1 3)$ & $(1 2)$ 
+      \\ $(1 2)$    & $(1 2)$ & $(2 3)$ & $(1 3)$ & $I$ & $(1 2 3)$ & $(1 3 2)$
+      \\ $(2 3)$    & $(2 3)$ & $(1 3)$ & $(1 2)$ & $(1 3 2)$ & $I$ & $(1 2 3)$
+      \\ $(1 3)$    & $(1 3)$ & $(1 2)$ & $(2 3)$ & $(1 2 3)$ & $(1 3 2)$ & $I$
+      \\\hline
+      \end{tabular}
+      \caption{the multiplication table of $S_3$}\label{tab:mulS}
+    \end{table}
+
+    Notice that both table shows similar structure. Also, when applying the map $\phi$ as follows, 
+    \begin{align*}
+       \phi: \; & r \mapsto (1 2 3)
+    \\ \phi: \; & f \mapsto (1 2) 
+    \end{align*} 
+    and extends according to the multiplication rules.
+    We can see that the multiplication table~\ref{tab:mulD} over $\phi$ is exactly the same as table~\ref{tab:mulS}
+  }
+  \qs{}{
+    Let $G$ be an abelian group. Prove that $\set{g \in G \mid |g| < \infty}$ is a subgroup
+    of $G$ (called the torsion subgroup of $G$). 
+    Give an explicit example where this set is not a subgroup when $G$ is non-abelian.
+  }
+  \sol{
+    Let denote the set $\set{g \in G \mid |g| < \infty}$ as $S$
+    Firstly, notice that for $g, h \in S$, $gh \in S$.
+    \begin{shift}
+      Consider $g, h \in S$, there exists $n, m \in \Nat$ such that $g^n = h^m = 1$ since the order of $g$ and $h$ is finite.
+      Therefore, \[{(g^n)}^m = {(h^m)}^n = 1 = g^{nm} = h^{nm}\] Therefore $g^{nm}h^{nm} = 1$. Lastly, since $G$ is abelian, 
+      $gh = hg$, which asserts that \[g^{nm}h^{nm} = {(gh)}^{nm} = 1\] 
+      Hence, the fact that the order of $gh$ is bounded by $nm$ ensures that \[gh \in \set{g \in G \mid |g| < \infty}\]
+    \end{shift}
+
+    Morover, for $g \in S$, the inverse $g^{-1} \in S$ exists
+    \begin{shift}
+      Consider an element $g \in S$, then there exists some integer $n \in \Nat$ such that $g^n = 1$. 
+      From there, $g^{n-1}g = gg^{n-1} = 1$, which means that $g^{n-1} = g^{-1}$ by definition. 
+      Note that \[ {g^{n-1}}^n = {g^n}^{n-1} = 1^{n-1} = 1 \] 
+      Since the order of $g^{-1}$ is bounded by $n$, then $g^{-1} \in S$.
+    \end{shift}
+
+    Therefore, since $S$ has a closure over the operator, and the inverse of each element is contained within $S$, 
+    Then $S$ is a subgroup of $G$. 
+
+    For a counterexample when $G$ is not abelian, consider $GL_2(\Real)$.
+    There exist $A = \begin{bmatrix}1 & 0 \\ 1 & -1 \end{bmatrix}$ and $B = \begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$
+    such that $AB = \begin{bmatrix}1 & 0 \\ 1 & 1 \end{bmatrix}$. Then it is easy to verify that $A^2 = I = B^2$, but ${(AB)}^n = \begin{bmatrix}1 & 0 \\ n & 1 \end{bmatrix}$
+  }
+\end{document}

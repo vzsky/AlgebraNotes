@@ -1,0 +1,248 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{HW 6 - Modern Algebra MAS311}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Show that $\Aut(\ZMod[4]) \isom \ZMod[2]$ and $\Aut(D_8) \isom D_8$
+  }
+  \sol{
+    For $\Aut(\ZMod[4])$, consider that for a automorphism $\sigma$ on $\ZMod[4]$, $\sigma([0]) = [0]$ and 
+    $\sigma([2]) = [2]$ or $[0]$ since $\sigma(2[2]) = 2\sigma([2]) = [0]$ and $2x = [0]$ has only two solutions in
+    $\ZMod[4]$. But if $\sigma([2]) = [0]$ then $\sigma$ will not be an isomorphism, as it will not be surjevtive.
+    Thus, $\sigma([2]) = [2]$. 
+    Now, we can check that $\sigma = id$ and $\sigma = (1 3)$ are both automorphism.
+    Firstly, $id$ is trivially an isomorphism, and for $(1 3)$, we can see that $\ker(1 3) = \set{0}$ and $\im(1 3) = 
+    \set{1, 2, 3, 4}$.
+
+    Since there are only $2$ automorphisms of $\ZMod[4]$, 
+    then $\Aut(\ZMod[4]) \isom \ZMod[2]$ by the uniqueness of group of order $2$. 
+
+    For $D_8$, consider an automorphism $\sigma$ on $D_8$, we have that $\sigma(r) = r$ or $\sigma(r) = r^3$ since an 
+    automorphism must preserve the order of the element in the group. Moreover, for we have that $\sigma(f) \ne r^2$
+    since if that is the case, then $\sigma(fr) = \sigma(f)\sigma(r) = r^2r^3$ is an element of order $4$ while $fr$ is 
+    of order 2.
+
+    Now, for $\sigma(r) = r'$ and $\sigma(f) = f'$, we have $\sigma(f^ir^j) = \sigma(f^i)\sigma(r^j) = f'^ir'^j$ to 
+    preserve the homomorphism. Since, $r' = r$ or $r' = r^{-1}$ and $f' = fr^i$ for some $i$, we have $f'^ir'^j$ 
+    uniquely represent an element of $D_8$. Because 
+    \begin{align*}
+      f^ir^j &= f^ir^j \\ 
+      f^ir^j &= f^i(r^3)^{-j} \\ 
+      f^ir^j &= (fr)^i r^{j-i} \\ 
+      f^ir^j &= (fr)^i (r^3)^{i-j} \\ 
+      f^ir^j &= (fr^2)^i r^{j-2i} \\ 
+      f^ir^j &= (fr^2)^i (r^3)^{2i+j} \\ 
+      f^ir^j &= (fr^3)^i (r^3)^{j-3i} \\ 
+      f^ir^j &= (fr^3)^i (r^3)^{3i-j} 
+    \end{align*}
+    
+    Therefore, we have show that there is exactly 8 automorphisms on $D_8$. We will then show that the automorphisms 
+    mentioned formed a group under composition, $\circ$. 
+
+    We define $\sigma_{r', f'}$ to be the automorphism that maps $r$ to $r'$ and $f$ to $f'$. Then, the composition 
+    of the automorphsim follows that following table.  
+
+    Note that in this table, we have $\sigma_a \times \sigma_b = \sigma_b \circ \sigma_a$
+
+    \begin{tabular}{|c|c c c c c c c c|}
+      \hline
+      $\times $&$ \sigma_{r, f} $&$\sigma_{r, fr} $&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3} $\\ 
+      \hline
+      $\sigma_{r, f}    $&$ \sigma_{r, f} $&$\sigma_{r, fr}$&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}   $&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$\\ 
+      $\sigma_{r, fr}   $&$\sigma_{r, fr}$&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}$&$ \sigma_{r, f}    $&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$\\     
+      $\sigma_{r,fr^2}  $&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}$&$ \sigma_{r, f} $&$\sigma_{r, fr}   $&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$\\ 
+      $\sigma_{r,fr^3}  $&$\sigma_{r,fr^3}$&$ \sigma_{r, f} $&$\sigma_{r, fr}$&$\sigma_{r,fr^2}   $&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$\\ 
+      $\sigma_{r^3, f}    $&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$&$ \sigma_{r, f} $&$\sigma_{r, fr}$&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}   $\\
+      $\sigma_{r^3, fr}   $&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r,fr^3}$&$ \sigma_{r, f} $&$\sigma_{r, fr}$&$\sigma_{r,fr^2}   $\\ 
+      $\sigma_{r^3, fr^2} $&$\sigma_{r^3, fr^2}$&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}$&$ \sigma_{r, f} $&$\sigma_{r, fr}   $\\
+      $\sigma_{r^3, fr^3} $&$\sigma_{r^3, fr^3}$&$\sigma_{r^3, f}$&$\sigma_{r^3, fr}$&$\sigma_{r^3, fr^2}$&$\sigma_{r, fr}$&$\sigma_{r,fr^2}$&$\sigma_{r,fr^3}$&$ \sigma_{r, f}    $\\ 
+      \hline
+    \end{tabular}
+
+    Which is identical to the table of $D_8$ as in here.
+
+    \begin{tabular}{|c|c c c c c c c c|}
+      \hline
+      $\times $&$ 1 $&$ r  $&$ r^2 $&$ r^3 $&$ f $&$ fr $&$ fr^2 $&$ fr^3  $\\ 
+      \hline
+      $1    $&$ 1 $&$ r $&$ r^2 $&$ r^3    $&$ f $&$ fr $&$ fr^2 $&$ fr^3 $\\ 
+      $r    $&$ r $&$ r^2 $&$ r^3 $&$ 1    $&$ fr^3 $&$ f $&$ fr $&$ fr^2 $\\     
+      $r^2  $&$ r^2 $&$ r^3 $&$ 1 $&$ r    $&$ fr^2 $&$ fr^3 $&$ f $&$ fr $\\ 
+      $r^3  $&$ r^3 $&$ 1 $&$ r $&$ r^2    $&$ fr $&$ fr^2 $&$ fr^3 $&$ f $\\ 
+      $f    $&$ f $&$ fr $&$ fr^2 $&$ fr^3 $&$ 1 $&$ r $&$ r^2 $&$ r^3    $\\
+      $fr   $&$ fr $&$ fr^2 $&$ fr^3 $&$ f $&$ r^3 $&$ 1 $&$ r $&$ r^2    $\\ 
+      $fr^2 $&$ fr^2 $&$ fr^3 $&$ f $&$ fr $&$ r^2 $&$ r^3 $&$ 1 $&$ r    $\\
+      $fr^3 $&$ fr^3 $&$ f $&$ fr $&$ fr^2 $&$ r $&$ r^2 $&$ r^3 $&$ 1    $\\ 
+      \hline
+    \end{tabular}
+  }
+
+  \qs{}{
+    Determine that inner automorphism groups $\Inn(\Int)$ and $\Inn(\ZMod[n])$
+  }
+  \sol{
+    Since $\Int$ and $\ZMod[n]$ are both cyclic, then they are abelian. 
+    Therefore, $Z(\Int) = \Int$ and $ Z(\ZMod[n]) = \ZMod[n]$. Thus, $\Int/Z(\Int) \isom \Inn(\Int)$
+    and $\ZMod[n] \isom \Inn(\ZMod[n])$
+    Which is $\Inn(\Int) \isom \set{e}$ and $\Inn(\ZMod[n]) \isom \set{e}$
+  } 
+
+  \qs{}{
+    Let $H$ be a subgroup of $G$. Show that the centralizer $C_G(H)$ of $H$ in $G$ is a normal subgroup
+    of $N_G(H)$. Show also that the homomorphism $c:G \to \Aut(G)$ given by conjugation induces an
+    injective homomorphism $N_G(H)/C_G(H) \to \Aut(H)$.
+  }
+  \sol{
+    Since $C_G(H) = \set{g \in G \mid gh = hg \; \forall h \in H}$, and $N_G(H) = \set{g \in G \mid gH = Hg}$. 
+    Now, consider $g \in C_G(H)$, $\forall h \in H, \; gh = hg$, which means that $gH = Hg$, thus, 
+    $C_G(H) \subseteq N_G(H)$.
+
+    Moreover, we know that $C_G(H)$ is a subgroup of $N_G(H)$ since $C_G(H)$ is a subgroup of $G$. 
+    Now, for any element $n \in N_G(H)$, we have 
+    \[ nC_G(H)n^{-1} = n\set{ghg^{-1} \mid \forall h \in H, \forall g \in G}n^{-1} = \set{ngh(ng)^{-1} \mid \forall 
+    h \in H, \forall g \in G} = C_G(H) \] since $ng \in G$ by the closure.
+    Therefore, $C_G(H) \normSg N_G(H)$
+  
+    Consider the homomorphism $c$ as $c : g \mapsto \sigma_g$ for which $\sigma_g$ is an automorphism in $G$ such that 
+    $\sigma_g: h \mapsto ghg^{-1}$. Now, by restricting the domain of $c$ to $N_G(H)$, we have the homomorphism
+    $c: N_G(H) \to \Aut(H)$ since $c(h) = \sigma_h$ and $\sigma_h(x) = hxh^{-1} \in H$ for all $x \in H$ since $h$ is 
+    an element of the normalizer of $H$. 
+
+    Now, consider $\ker c = \set{h \mid c(h) = \sigma_h = id}$. Now, if $\sigma_h(x) = hxh^{-1} = x$ for all $x \in H$,
+    then $h$ must be an element of the centralizer of $H$ by definition (as $hx = xh$ for all $x$). So, the kernel of 
+    the homomorphism $c$ is $\set{h \mid \sigma_h = id} = C_G(H)$.
+
+    Thus, we have another homomorphism $c': N_G(H)/C_G(H) \to \Aut(H)$ induced by the homomorphism $c$, 
+    given by $c': hC_G(H) \mapsto c(h)$. 
+    where the kernel $\ker c' = \set{C_G(H)}$. So, $c'$ is an injective homomorphism.
+  } 
+
+  \qs{}{
+    Let $P$ be a subgroup of $S_p$ of order $p$, where $p$ denotes a prime integer. Prove that 
+    $\abs{N_{S_p}(P)} = p(p-1)$ and $N_{S_p}(P)/C_{S_p}(P) \isom \Aut(P)$
+  }
+  \sol{
+    Consider the group $S_p$ and the corresponding subgroup $P$ of order $p$. Then, there is $(p-1)!$ cycles of length
+    $p$ since each cycle can be written in the form of $(1 \; \sigma(1) \; \sigma(2) \; \sigma(p-1))$. Since there is 
+    $(p-1)!$ possible cycle that can be written in that form, as it is a permutation of $p-1$ objects. 
+    Moreover, each subgroup of order $p$ corresponds to $p-1$ cycles of length $p$. This is due the fact that 
+    $\sigma, \sigma^2, \ldots, \sigma^p-1$ generates the same group as $\gcd(k, p) = 1 \forall 1 < k < p$. 
+
+    Now, note that the largest power of $p$ that divides $p!$ is $p^1 = p$, so the order of sylow $p$ subgroup is $p$.
+    Consider that there is $(p-2)!$ subgroup of order $p$, we know that the conjugation of a sylow $p$ subgroup is 
+    another sylow $p$ subgroup, thus, the size of orbit of $P$ by conjugation on $G$ is $(p-2)!$. This means that the 
+    size of the stabilizer of $P$, which is the normalizer of $P$ is $p/(p-2)! = p(p-1)$.
+
+    Next, we use similar argument from the last problem to create $c: N_{S_p}(P) \to \Aut(P)$ in the same way. We have 
+    that for any $\sigma \in \Aut(P)$, $\sigma$ is uniquely identify by a single point as $P$ is cyclic. 
+    If we define $\sigma_g$ as $\sigma_g : h \mapsto ghg^{-1}$, then $\sigma_g$ are all the possible automorphism of $P$. 
+    This is because the orbit of a conjugacy action of $N_G(P)$ on $P$ defined as $h \mapsto ghg^{-1}$ must be of 
+    size $p$ for $h$ of order $p$. 
+
+    This means that the homomorphism $c$ is an epimorphism, and thus, by the proof provided in the last problem, the 
+    induced homomorphism $c': N_{S_p}(P)/C_{S_p}(P) \to \Aut(P)$ is an injective homomorphism, but since $c$ is 
+    surjective, then it is an isomorphism.
+  }
+
+  \qs{}{
+    Let $H$ be a subgroup of $G$ and let $H$ act on $G/H$ by translation. Find the orbits, stabilizers, and 
+    fixed points of the action.
+  }
+  \sol{
+    Let $H$ acts on $G/H$, then consider $G/H = \set{H, g_1H, g_2H, \cdots}$, for some $g_1, \; g_2, \; \cdots$.
+
+    The orbits of the group action is the set $\set{hgH \forall h \in H, g \in G}$
+
+    The stabilizers of the group action is the set $\set{h \in H \mid hgH = gH}$, which is the set 
+    $\set{h \in H \mid g^{-1}hg \in H}$ 
+
+    The fixed points of the action is the point $gH$ for which $hgH = gH$. 
+    Thus the set of fixed point is the set 
+    \[ \set{gH \in G/H \mid hgH = gH} = \set{gH \in G/H \mid g^{-1}hg \in H} \]
+  } 
+
+  \qs{}{
+    Let $G$ act on a set $X$. Show that if $x, x' \in X$ satisfy $gx = x'$ for some $g \in G$ then 
+    $G_{x'} = gG_xg^{-1}$
+  }
+  \sol{
+    Let $g$ be the element such that $gx = x'$, then we show that if $g' \in G_x'$ then we know that $g'x' = x' = gx$.
+    Therefore, $g'gx = gx$, thus, $g^{-1}g'g x = x$, so $g' \in g^{-1}G_x{g^{-1}}^{-1}$. 
+
+    On the other hand, if $g' \in g^{-1}G_x{g^{-1}}^{-1}$, we have that $g^{-1}g'gx = x$, so $g'gx = gx$, 
+    thus $g'x' = x'$. Therefore, we have $g' \in G_{x'}$
+
+    So, $G_{x'} = g^{-1}G_x{g^{-1}}^{-1}$
+  } 
+
+  \qs{}{
+    Let $H < G$. Show that if the center of $G$ contains $H$ and the quotient group $G/H$ is cylic, then $G$ is abelian.
+  }
+  \sol{
+    Firstly, if the center of $G$ contains $H$, then $H$ must be abelian, and thus $H$ is a normal subgroup of $G$.
+    If $G/H$ is cylic, then let $G/H$ be generated by $gH$, which means that $G =\set{g, g^2, \cdots}H$. 
+    Now for any $a, b \in G$, we have that $a = g^nh$ and $b = g^mh'$ for some integer $n, m$ and some $h, h' \in H$. 
+    which means that \[ ab = g^nhg^mh' = g^ng^mhh' = g^mg^nh'h = g^mh'g^nh = ba \] Thus, $G$ is abelian.
+  } 
+
+  \qs{}{
+    Let $G$ be a $p$-group. Show that $G$ has a normal subgroup of order $p$.
+  }
+  \sol{
+    Since there is only 1 element of order 1, which is the unique identity element in $G$ of order $p^n$ for some $n$. 
+    Moreover, there is no element of order $k$ for $1 < k < p$ since $k \not\vert p$. Therefore, there must be an element
+    of order $p$ in the group $G$, since there is at least 2 elements of $G$.
+
+    Then let that element be $g$. We can generate a subgroup $\ang{g}$ which has order $p$ since it contains exactly $p$
+    elements of the form $g^1, \; g^2, \; \ldots,\; g^p$. Now, since $\ang{g}$ is cyclic, then $\ang{g}$ is abelian. 
+    Therefore, $\ang{g}$ is a normal subgroup of $G$ for which $\abs{\ang{g}} = p$.
+  }
+
+  \qs{}{
+    Let $H$ be a subgroup of a finite group $G$. Prove that if $G = \bigcup_{x \in G} xHx^{-1}$ then $H = G$. 
+  }
+  \sol{
+    Assume that $H \ne G$ to prove using the contraposition. 
+
+    Firstly, let $N_G(H)$ be the normalizer of $H$ in $G$, which is $N_G(H) = \set{ g \mid gHg^{-1} = H}$.
+    So we get that $\set{gN_G(H)}$ totally partition $G$. Thus, $G$ can be uniquely represented as $gn$ for 
+    $g \in G/N_G(H)$ and $n \in N_G(H)$. Now, for $gn \in G$, the conjugated subgroup 
+    $gnH(gn)^{-1} = gnHn^{-1}g^{-1} = gHg^{-1}$. Therefore, there is at most $\abs{G/N_G(H)} = [G:N_G(H)]$ conjugated
+    subgroup of $H$.
+
+    Now, since there is $\abs{H}$ elements in each of $\set{gHg^{-1}}$, therefore, the union 
+    \[ \abs{ \bigcup_{g \in G} gHg^{-1} } < \sum_{g \in G} \abs{gHg^{-1}} \le \abs{H}[G:N_G(H)] = G \]
+    Since the identity element is contained in every conjugated subgroup $gHg^{-1}$. 
+    From this, it is acheived that $\bigcup_{g \in G} gHg^{-1} \ne G$.
+
+    Hence, the statement is proved by the contraposition.
+  } 
+
+  \qs{}{
+    Let $H$ be a nontrivial normal subgroup of a $p$-group $G$. Show that $H \cap Z(G)$ is nontrivial.
+  }
+  \sol{
+    Let consider an action $\cdot$ of a group $G$ that acts on $H$ by conjugation. Then the action is well define since 
+    $g \cdot h = ghg^{-1} \in H$ as $H$ is a normal subgroup of $G$. Then, the orbit of $h$ is 
+    $Gh = \set{ghg^{-1} \mid g \in G}$ so any orbit of size one $Gh = \set{h} = \set{ghg^{-1}}$ implies that 
+    $gh = hg$, so it is in the center of $G$ by definition. 
+
+    Now, by the orbit stabilizer theorem, we get that $\abs{Gh} = [G:G_h]$. So, $\abs{Gh}$ must divides $p^n$ as 
+    $[G:G_h] = \abs{G}/\abs{G_h}$ divides $p^n$.
+    There is at least one orbit of size one, which is $\abs{Ge} = \abs{\set{e}} = 1$, 
+    Consider if there is no other orbit of size $1$, then $\abs{H} = p^m = 1 + pk$ for some $m,k$, as
+    the orbits of size greater than one must have the size that divides $p^n$, which must be a multiple of $p$. 
+    This means that there must be at least $p$
+    elements of $H$ that its orbit is of size one, which is the element of $H$ that is in the center of $G$.
+
+    Since $p > 1$, $H \cap Z(G)$ is nontrivial as $\abs{H \cap Z(G)} > p > 1$
+  } 
+
+\end{document}

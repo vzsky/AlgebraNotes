@@ -1,0 +1,191 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Modern Algebra 1 - MAS311}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Show that $S_3$ is isomorphic to $\Aut(\ZMod[2] \times \ZMod[2])$. 
+  }
+  \sol{
+    Firstly, an automorphism of $K_4 \isom \ZMod[2] \times \ZMod[2] = \set{0, 1, 2, 3}$ 
+    must map $e \to e$. And as the rest of the elements are all of order 2, 
+    then it must map a non-trivial element $1$ with either $1 \to 1, 2, 3$. Next, to maintain that the map is an isomorphism,
+    it must map $2$ to either $1, 2, 3$ with the condition that it must map $1$ and $2$ to different element. Therefore it must map $3$ 
+    to the remaining element. This shows that $\abs{\Aut(K_4)} \le 6$
+
+    Next, consider a group $S_3$ that permutes element $\set{1, 2, 3}$ and the action of $S_3$ on $K_4$ such that 
+    $\sigma \cdot 0 = 0$ and $\sigma \cdot g = \sigma(g)$. Then the action is well defined as 
+    $\sigma \cdot \sigma' \cdot g = \sigma(\sigma'(g)) = \sigma \circ \sigma'(g)$ and $id \cdot g = g$.
+    Now, the group action corresponds bijectively to a homomorphism from $S_3$ to $\Aut(K_4)$. 
+    The kernel of the homomorphism is the set $\set{\sigma \mid \sigma g = g \forall g} = \set{id}$.
+    Lastly, as $\abs{\Aut(K_4)} \le 6$, it follows that the image of the homomorphism must be $\Aut(K_4)$ so lagrange's theorem holds. 
+    Therefore, by the first isomorphism theorem, $S_3 \isom \Aut(K_4)$. 
+  }
+
+  \qs{}{
+    A subgroup $C$ of $G$ is called characteristic if $f(C) = C$ for any automorphism $f$ of $G$. 
+    Show that a characteristic subgroup $C$ is normal in $G$. 
+  }
+  \sol{
+    As $\Inn(G) < \Aut(G)$, it holds that $f(C) = C$ for all $f \in \Inn(G)$. As $\Inn(G)$ is the group of all automorphism given by 
+    conjugation, and $f(C) = C$ for any $f \in \Inn(G)$, then $C$ is normal by definition.
+  } 
+
+  \qs{}{
+    Let $f, g: K \to \Aut(H)$ be two homomorphism. Assume that there exists an automorphism $\phi: K \to K$ such that 
+    $f = g \circ \phi$. Prove that the map $H \rtimes_g K \to H \rtimes_f K$ given by $(h,k) \mapsto (h, \phi^{-1}(k))$ is an 
+    isomorphism.
+  }
+  \sol{
+    Consider a map $\psi: H \rtimes_g K \to H \rtimes_f K$ given by $\psi: (h, k) \mapsto (h, \phi^{-1}(k))$.
+    Notice that $f(k) = g(\phi(k))$, and since $f$ and $g$ are automorphisms, $f(\phi^{-1}(k)) = g(k)$ for any $k$.
+    Then, \eqs{
+      \psi((h, k)(h', k')) &= \psi((hg(k)(h'), kk')) \\ 
+                           &= (hg(k)(h'), \phi^{-1}(kk')) \\ 
+                           &= (h f(\phi^{-1}(k))(h'), \phi^{-1}(k) \phi^{-1}(k')) \\ 
+                           &= (h, \phi^{-1}(k)) \cdot (h', \phi^{-1}(k')) \\ 
+                           &= \psi(h, k) \cdot \psi(h', k')
+    }
+    shows that $\psi$ is a homomorphism. 
+
+    Furthermore, If $\psi((h, k)) = \psi((h', k'))$, then $(h, \phi^{-1}(k)) = (h', \phi^{-1}(k'))$. Thus, $h = h'$ and $k = k'$ as 
+    $\phi$ is an automorphism, which means that it is an isomorphism.
+
+    Lastly, $\im(\psi) = \set{(h, k) \mid h \in H, k \in \im(\phi)}$. However, as $\phi$ is an automorphism, then $\im(\phi) = K$. 
+    Thus, $\im(\psi) = \set{(h, k) \mid h \in H, k \in K} = H \rtimes_g K$. 
+
+    As the map $\psi$ is a homomorphism that is surjective and injective, then it is an isomorphism.
+  }
+
+  \qs{}{
+    Classify all groups of order 325 upto isomorphism.
+  }
+  \sol{
+    Let $G$ be a group of order $325 = 5^2 \cdot 13$. Assume that $G$ is non-abelian. 
+    Then, consider the sylow 5-subgroup of $G$ of order 25.
+    The number of such subgroup satisfies $n_5 \equiv 1 \pmod5$ and $n_5 \vert 13$, so $n_5 = 1$. 
+    Since there is a unique sylow 5-subgroup of $G$, then the group is normal.
+    In the same way, the number of sylow 13-subgroup satisfies $n_{13} \equiv 1 \pmod{13}$ and $n_{13} \vert 25$, so $n_13 = 1$ or $26$.
+    However, if there is also a unique sylow 13-subgroup of $G$, then $G$ must be abelian as all of sylow subgroups are unique.
+    Thus, $n_13 = 26$. Now, since all sylow 13-subgroup are cyclic, then they intersect trivially, 
+    so there must be $12 \times 26 = 312$ elements of order 13 in $G$.
+
+    Now, the unique sylow 5-subgroup contains 24 elements, none of which has order 13 by lagrange's theorem. So, $G$ must contains 
+    at least $312 + 24 = 336$ non-trivial elements, which is not possible. This concludes that $G$ must be abelian.
+
+    Consider that if $G$ is abelian, then by the fundamental theorem of finite abelian group, 
+    $$G \isom \ZMod[325] \text{ or } G \isom \ZMod[5] \times \ZMod[65]$$
+    This is because $\ZMod[p] \times \ZMod[q] \isom \ZMod[pq]$ if $\gcd(p, q) = 1$.
+
+    Moreover, $\ZMod[325]$ and $\ZMod[5] \times \ZMod[65]$ is not isomorphism as the first one is cyclic but the latter is not.
+
+    To conclude, they are only two groups of order 325 upto isomorphism.
+  } 
+
+  \qs{}{
+    A ring $R$ is called a Boolean ring if $a^2 = a$ for all $a \in R$. Prove that every Boolean ring is commutative. And prove that 
+    only Boolean ring that is an integral domain is $\ZMod[2]$. 
+  }
+  \sol{
+    Let $a$ and $b$ be two elements in $R$. Then $a + b \in R$ by closure, 
+    hence $a + b = (a + b)^2 = a^2 + ab + ba + b^2 = a + ab + ba + b$. This shows that $ab + ba = 0$, so, $ab = -ba$.
+    But, $ab \in R$ by closure, so $ab + ab = (ab+ab)^2 = ab + ab + ab + ab$, which is that $ab + ab = 0$, or $ab = -ab$.
+    Therefore, $-ab = -ba$, or equivalently, $ab = ba$ for every $a$ and $b$ in $R$.
+    
+    Now, as $a^2 = a$, then $a(a-1) = a^2 - a = 0$. If there exist two non-zero elements $a$ and $(a-1)$, then $R$ is not an 
+    integral domain. That is equivalent to saying that if there is a non-zero element $x$ such that $x + 1$ is also non-zero, then 
+    $R$ would not be an integral domain.
+    But since $1$ is not the additive identity, if there is at least 3 elements in $R$, then there must be an element that is non-zero 
+    and that is not the inverse of $1$. Consider that the element, say, $x$ satisfies that $x+1 \ne 0$ and $x \ne 0$. 
+    So, $(x+1)(x+1-1) = (x+1)^2 - (x+1) = 0$ shows that $(x+1)$ is a zero-divisor.
+
+    For the case of $R = \ZMod[2]$, it is trivial to check that $1\cdot1 = 1^2 = 1 \ne 0$, since $1$ is the only non-zero element. 
+  } 
+
+  \qs{}{
+    Let $R$ be a ring with an identity. Prove that the center $\set{z \in R \mid zr = rz \text{ for all } r \in R}$ of $R$ is a 
+    subring that contains the identity. And prove that the center of a division ring is a field. 
+  }
+  \sol{
+    Let $Z = \set{z \in R \mid zr = rz \text{ for all } r \in R}$ be the center of $R$.
+    Then, for $z, z' \in Z$, the sum $z + z'$ satisfies $(z+z')r = zr + z'r = rz + rz' = r(z+z')$. So, $(z + z') \in Z$. 
+    Also, inverse $-z$ satisfies $(-z)r = -zr = -rz = r(-z)$. So, $(-z) \in Z$. 
+    In addition, the product $zz'$ also satisfies $zz'r = zrz' = rzz'$, so $(zz') \in Z$. 
+    This shows that $Z$ is a subring of $R$.
+    In addition, $1 \in R$ since $1r = r = r1$ for every $r \in R$ by definition.
+
+    Next, if $R$ is a division ring, then any element in $R$ has an inverse.
+    The center $Z$ contains the element that is commutative over the multiplicative operation and that $Z$ is subring implies that 
+    $Z$ is a commutative ring. Moreover, since any element in $R$ has an inverse, any element in $Z$ must have an inverse.
+    Therefore, $Z$ is a commutative division ring, which proves that $Z$ is a field.
+  } 
+
+  \qs{}{
+    Let $x$ be a nilpotent element (i.e. $x^m = 0$ for some $m \in \Int^+$) of the commutative ring $R$ with an identity.
+    Prove that $x$ is either zero or a zero divisor. 
+  }
+  \sol{
+    Assume that $x \ne 0$, then let $m$ be the least integer such that $x^m = 0$, so that $x^{m-1} \ne 0$. 
+    Then $x \cdot x^{m-1} = x^m = 0$ where neither $x$ nor $x^{m-1}$ is zero. So, $x$ is a zero divisor.
+
+    Therfore, $x=0$ or $x$ is a zero divisor must holds.
+  }
+
+  \qs{}{
+    Let $x$ be a nilpotent element (i.e. $x^m = 0$ for some $m \in \Int^+$) of the commutative ring $R$ with an identity.
+    Prove that $1 + rx$ is a unit in $R$ for all $r \in R$. 
+  }
+  \sol{
+    For any element $x$, consider an integer $m$ such that $x^m = 0$. If $m$ is even, then consider $x^{m + 1} = x^m \cdot x = 0$. 
+
+    Now, $$1 = 1 + r^mx^m = 1 + (rx)^m = (1 + rx)(1 - rx + (rx)^2 - \cdots + (rx)^{m-1})$$.
+    holds for any value of $r$ as $x^m = 0$. Then $(1+rx)^{-1} = (1 - rx + (rx)^2 - \cdots + (rx)^{m-1})$ by definition.
+    Hence, $(1+rx)$ is invertible.
+  } 
+
+  \qs{}{
+    Let $K = \Rat$ and let $p$ be a prime integer. For any $x \in \Rat$, we can write uniquely as $x = p^n\frac{c}{d}$ 
+    where $p \nmid c$ and $p\nmid d$. Define $v_p(x) = n$. Prove that $v_p$ is a discrete valuation on $K$. 
+  }
+  \sol{
+    Define $v_p$ as in the problem statement. Note that since $x = p^n \frac{c}{d}$ is a unique representation (according to the 
+    fundamental theorem of arithmetric), then $v_p$ is well-defined.
+
+    Let $x = p^n\frac{a}{b}$, and $y = p^m\frac{c}{d}$, where $p$ does not divide any of $a, b, c, d$.
+    Without loss of generality, let $n < m$.
+
+    Consider $v_p(xy) = v_p(p^n\frac{a}{b}p^m \frac{c}{d}) = v_p(p^{n+m} \frac{ac}{bd})$ where $p \nmid ac$ and $p\nmid bd$.
+    So, $v_p(xy) = n+m = v_p(x) + v_p(y)$
+
+    Next, consider $v_p(x + y) = v_p(\frac{p^n a }{b} + \frac{p^m c}{d}) = v_p(\frac{p^n ad + p^m cb}{bd} = p^n
+    \frac{ad + p^{m-n}cb}{bd})$.
+    So $v_p(x + y) = v_p(p^{n}) + v_p(\frac{ad + p^{m-n} cb}{bd}) \ge n = \min(n, m) = \min(v_p(x), v_p(y))$.
+
+    Thus, $v_p$ is a discrete valuation on $K$.
+  }
+  
+  \qs{}{
+    In problem 9, prove that the ring of all rational numbers whose denominators are relatively prime to $p$ is a 
+    discrete valuation ring.
+  }
+  \sol{
+    As $v_p: p^n\frac{a}{c} \mapsto n$ is a discrete valuation on $\Rat$, then $\Rat_v = \set{a \in \Rat^\times \mid v_p(a) \le 0} 
+    \cup \set{0}$ is a discrete valuation ring by definition. 
+
+    Consider that for a rational number $r$ in its simplest form that the denominator is divisible by $p$, then $r = \frac{a}{p^n b}$ 
+    for some positive integer $n$, and $a, b$ relatively prime to $p$. Thus, $v_p(r) = -n < 0$. 
+
+    Otherwise, if the denominator is not divisible by $p$, then $f = \frac{p^n a}{b}$ for some non-negative integer $n$, and $a, b$
+    relatively prime to $p$. Thus, $v_p(r) = n \ge 0$. 
+
+    So, $\Rat_v = \set{\frac{c}{d} \in \Rat^\times \mid d \text{ is not divisible by } p} \cup \set{0}$. 
+    Hence, the set of all rational numbers whose denominators are relatively prime to $p$ is a discrete valuation ring.
+  } 
+
+\end{document}
