@@ -1,0 +1,104 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{article}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Short Exact Sequence}
+\fancyhead[R]{note by \textbf{Touch Sungkawichai}}
+
+\begin{document}
+
+\section{Short Exact Seqeunce}
+A short exact sequence is literally a short sequence, a sequence of 3 groups with certain property. The property of the sequence is that 
+\[1 \to L \tol[f] G \tol[g] R \to 1 \]
+such that all arrows correspond to a group homomorphism, moreover, $\ker \psi = \im \phi$ at all $A \tol[\phi] B \tol[\psi] C$ 
+in the sequence.
+
+From the observation that
+\begin{itemize}
+  \item $1 \to L$ is the trivial group homomorphism that sends $1 \mapsto 1$ with the image being the set of identity in $L$. 
+  \item $R \to 1$ is the trivial group homomorphism that sends $r \mapsto 1$ for all $r \in R$, so the kernel is $R$ itself.
+\end{itemize}
+
+It follows that $\ker f = 1_L$, thus $f$ is injective, and $\im g = R$, so $g$ is surjective. 
+
+\df{splitting short sequence}{A short sequence is called split if there is a homomorphism $h: R \to G$ such that $h \circ g = id$}
+
+The intuition behind a split short exact sequence is that normally, a seqeunce \[ 1 \to L \to G \tol[g] R \to 1 \] induces an isomorphism 
+\[ \frac{G}{\ker g} \isom R \]
+This can be viewed as breaking the group $G$ up into partitions according $\ker g$ yields the group structure of $R$. 
+When the sequence split, then there is a homomorphism $h$ from $R$ back to $G$ such that $h$ splits $R$ into elements. 
+Each elements in $R$ should then be splitted into each of the partition described.
+
+\subsection{Example}
+Firstly, the group $D_6 = S_3$ can be viewed as the extension from the sequence 
+\[0 \tol[f] \ZMod[3] \to D_6 \tol[g] \ZMod[2] \to 0\] is a short exact sequence with the following homormosphisms
+\eqs{
+  \ZMod[3] \to D_6 & & \text{given by} & & 0 \mapsto 1   \\ 
+                   & &                 & & 1 \mapsto r   \\ 
+                   & &                 & & 2 \mapsto r^2 \\ 
+  D_6 \to \ZMod[2] & & \text{given by} & & 1, r, r^2 \mapsto 0   \\ 
+                   & &                 & & f, fr, fr^2 \mapsto 1 
+}
+Moreover, the short sequence split by the homomorphism $\ZMod[2] \to D_6$ given by $h$ such that
+\[ 0 \mapsto 1 \text{ and } 1 \mapsto gf \]
+as it is easy to verify that $g \circ h(0) = g(h(0)) = g(1) = 0$ and $g \circ h (0) = g(h(1)) = g(f) = 1$, which means that
+$g \circ h$ is the identity on $R$. 
+
+It can then be seen that the element in $\ZMod[2]$, which are $0$ and $1$ splits into different partition of $D_6$
+
+Another example is the group $\ZMod[6]$, which relates to the following sequence 
+\[ 0 \to \ZMod[3] \tol[f] \ZMod[6] \tol[g] \ZMod[2] \to 0 \] with the following homomorphisms
+\eqs{
+  \ZMod[3] \to \ZMod[6] & & \text{given by} & & 0 \mapsto 0   \\ 
+                        & &                 & & 1 \mapsto 2   \\ 
+                        & &                 & & 2 \mapsto 4 \\ 
+  \ZMod[6] \to \ZMod[2] & & \text{given by} & & 0, 2, 4 \mapsto 0   \\ 
+                        & &                 & & 1, 3, 5 \mapsto 1 
+}
+And the sequence is also split by the homomorphism $h$ given by 
+\[ h: 0 \mapsto 0 \text{ and }  1 \mapsto 1 \]
+
+\section{Embedding of Short Exact Seqeunce}
+
+Take the first example given above, \[ 0 \to \ZMod[3] \to D_6 \to \ZMod[2] \to 0 \] for example, 
+as the sequence splits, it can be written in another form, embedding all the groups in the sequence as a subgroup of the middle group.
+
+This is \[ 1 \to \set{1, r, r^2} \to \set{1, r, r^2, f, fr, fr^2} \to \set{1, f} \to 1 \]
+It can be seen that each pair of corresponding groups are isomorphic.
+
+Generally, every sequence can be embbed in this way.
+
+With this embbeding, $L < G$ and $R < G$ as subgroup. Furthermore, as $L = \im f = \ker g$ and $\ker g \normSg G$, then $L \normSg G$.
+
+\section{Semi Direct Product}
+
+Every short exact sequence that splits induce an extension of two groups. The seqeunce 
+\[ 1 \to L \to G \to R \to 1 \] shows an extension of $L$ and $R$ to a bigger group $G$. The group $G$, 
+if finite, will be of size $\abs{L}\abs{R}$. It is identified as the semi direct product $G = L \rtimes R$
+
+\df{Semi Direct Product}{
+  If there is a map $\phi: R \to \Aut(L)$, then 
+  the semi direct product $L \rtimes R$ is the group \[ \set{(l, r) \mid l \in L, r \in R} \] with the operation 
+  \[ (l_1, r_1) \cdot (l_2, r_2) = (l_1\phi_{r_1}(l_2), r_1r_2) \] where $\phi_k = \phi(k)$ is an automorphism on $L$.
+}
+
+To see that $G$ is the semi direct product, consider the seqeunce 
+\[1 \to L \tol[f] G \tol[g] R \to 1 \] with $h: R \to G$ that splits the sequence.
+
+As $g \circ h = id$, then embedding $L$ and $R$ to $G$ gives that any element $r \in R$ is an element of $G$, and every 
+element $l \in L$ is also an element of $G$. Hence, $\phi_r(l) = rlr^{-1}$ defines an automorphism of $L$ because $L \normSg G$. 
+
+Therefore, there is $\phi: r \mapsto \phi_r$ that sends $R \to \Aut(L)$, completing the requirement for a semi-direct product.
+
+Thus, every time there is a short exact sequence that splits, the middle group is the, or isomorphic to the, semi direct product of the 
+two groups.
+
+\subsection{Direct Product}
+A direct product is a special case of semi direct product when $\phi: r \mapsto id$. With this map, the definition of semi direct product
+yields $L \rtimes R = \set{ (l, r) \mid l \in L, r \in R }$ with the operation 
+\[ (l_1, r_1) \cdot (l_2, r_2) = (l_1l_2, r_1r_2) \] which aligns with the definition of direct product.
+
+\end{document}

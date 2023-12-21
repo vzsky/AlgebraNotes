@@ -1,0 +1,353 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Modern Algebra II MAS312}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Let $m, n \ge 1$ be integers. Find all prime and maximal ideals of $\ZMod[m] \times \ZMod[n]$
+  }
+  \sol{
+    Firstly, for an ideal $I$ of $R \times S$, there exist ideal $I_R$ of $R$ and $I_S$ of $S$ such that $J \isom I_R \times I_S$.
+    The ideals can be constructed by $I_R = \set{r \mid (r, s) \in I}$ and $I_S = \set{s \mid (r, s) \in I}$.
+    Then, $I \subset I_R \times I_S$ by construction.
+
+    Now, for any $i_R \in I_R$, $(i_R, 0) \in I$ because there is some $s$ making $(i_r, s) \in I$. And in the same way, 
+    for any $i_S \in I_S$, $(0, i_S) \in I$. Thus, $I \isom I_R \times I_S$.
+
+    Since ideals of $\ZMod[m]$ is in the form of $d\ZMod[m]$ for divisor of $m$, then the ideals of $\ZMod[m] \times \ZMod[n]$ is in 
+    the form of $c\ZMod[m] \times d\ZMod[n]$.
+
+    Now, consider a homomorphism $\phi: R \times S \to R/I \times S/J$ given by $(r, s) \mapsto (r + I, s + J)$. The kernel of the 
+    homomorphism is then $I \times J$. So, by the first isomorphism theorem, 
+    \[ \frac{R \times S}{I \times J} \isom \frac{R}{I} \times \frac{S}{J} \]
+    
+    This result, together with the third isomorphism theorem, shows that 
+    \[ \frac{\ZMod[m] \times \ZMod[n]}{c\ZMod[m] \times d\ZMod[n]} \isom 
+      \frac{\ZMod[m]}{c\ZMod[m]} \times \frac{\ZMod[n]}{d\ZMod[n]} \isom 
+      \ZMod[c] \times \ZMod[d]
+    \]
+    
+    Unless $c$ or $d$ is $1$, 
+    If $\ZMod[c] \times \ZMod[d]$ is cyclic, then $c \times d = 0$ under $\ZMod[cd]$, thus it is not a domain. 
+    Otherwise, $(1, 0)(0, 1) = 0$ under $\ZMod[c] \times \ZMod[d]$, therefore, it is not a domain. 
+
+    If $c$ and $d$ is $1$, then $I$ is the whole ring, thus not a maximal nor prime ideal.
+    
+    If $c = 1$, then $\ZMod[c] \times \ZMod[d] \isom \ZMod[d]$, it is a domain and a field if and only if $d$ is prime.
+    And similarly for when $d = 1$. 
+
+    Therefore, the concept of maximal ideal and prime ideal concides, and they are the ideals in the form of 
+    \[ \ZMod[m] \times p\ZMod[n] \text{ or } q\ZMod[m] \times \ZMod[n] \] where $p$ is a prime divisor of $m$ and $q$ is that of $n$.
+
+  }
+
+  \qs{}{
+    Show that for any field $F$ and any positive integer $n$ the matrix ring $M_n(F)$ has no nontrivial ideals. 
+  }
+  \sol{
+    Let $e_{ij}$ be a matrix that has $0$ as its entries everywhere, except that the entry at row $i$ column $j$, 
+    that is filled with $1$. 
+    Then, $\set{e_{ij} \mid 1 \le i, j \le n}$ is a basis of $M_n(F)$. 
+    Now, let $I$ be an non-empty ideal, and $0 \ne a \in I$ be any element. 
+    Then, \[ a = \sum_{1 \le i, j \le n} a_{ij}e_{ij} \text{ for some $a_{ij} \in F$} \]
+
+    Then, observe that $e_{ik}e_{li} = e_{ii}$ if $k = l$ and is $0$ otherwise.
+
+    Now, consider that \eqs{ e_{ik} a e_{li} &= e_{ik} \sum_{j, j'} a_{jj'}e_{jj'} e_{li} \\ 
+                                             &= \sum_{j, j'} a_{jj'} e_{ik} e_{jj'} e_{li} \\ 
+                                             &= \sum_{j'} a_{kj'} e_{ik}e_{kj'} e_{li} \\ 
+                                             &= a_{kl}e_{ik}e_{kl}e_{li} \\
+                                             &= a_{kl}e_{ii}
+    }
+
+    Since $a_{kl}e_{ii} \in I$ as $I$ is an ideal, then $e_{ii} \in I$ as $F$ is a field and $a_{ki}^{-1}$ exists. But that means 
+    $\mat{1 & 0 & \cdots & 0 \\ 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & 1 }$ is also contained 
+    in the ideal, which means $I = M_n(F)$. 
+
+    Therefore, there is no non-trivial ideal of $M_n(F)$.
+  }
+
+  \qs{}{
+    Determine all prime and maximal ideals in $\Int[x]$
+  }
+  \sol{
+    Let $I$ be a prime ideal in $\Int[x]$, then $I \cap \Int$ must also be a prime ideal because if not, then there is $n \in \Int$ that 
+    $n = ab$, $n \in I$ but $a \not\in I$ and $b \not\in I$. As prime ideals of $\Int$ are $\set{0}$ and $p\Int$ for prime $p$, the 
+    intersection $I \cap \Int$ must be either $\set{0}$ or $p\Int$. 
+
+    Note that $I = \set{0}$ is also a prime ideal of $\Int[x]$. 
+    If $I \cap \Int = \set{0}$ and $I \ne \set{0}$ then $I$ must contains only polynomials of degree greater than 0, 
+    for example, $x\Int[x]$, and so on.
+
+    If $f$ is an irreducible element of $\Int[x]$, then it is equivalently prime, as $\Int[x]$ is a UFD. 
+    Which means that $f\Int[x]$ is a prime ideal.
+
+    If $I \cap \Int = p\Int$, then $I$ must contains $p\Int$, which is that $p$ is one of the generator of $I$.
+    Note that $I = p\Int$ is also a prime ideal of $\Int[x]$.
+  }
+
+  \qs{}{
+    Let $I$ and $J$ be left ideals of a ring $R$. Show that $I + J$, $I \cap J$, and $IJ$ are left ideals of $R$.
+    Show also that $IJ \subset I \cap J \subset I + J$ if in addition $I$ is a right ideal.
+  }
+  \sol{
+    \begin{itemize}
+      \item $I + J = \set{a + b \mid a \in I, b \in J}$. 
+        Since $I$ and $J$ are left ideals, then let $r$ be any element in $R$ and $a+b \in I+J$ such that $a \in I$ and $b \in J$. 
+        It follows that $r(a + b) = ra + rb$, with $ra \in I$ and $rb \in J$ by the property of left ideals. 
+        Since $ra \in I$ and $rb \in J$, then it is concluded that $r(a+b) = ra + rb \in I+J$, which means that $I+J$ is a left ideal.
+      \item Let $a \in I \cap J$, then, $a \in I$ and $a \in J$. And for any $r \in R$, $ra \in I$ since $I$ is a left ideal. 
+        But also, $ra \in J$ since $J$ is a left ideal. Therefore, $ra \in I \cap J$, which is that $I \cap J$ is a left ideal. 
+      \item $IJ = \set{\sum_{i=1}^n a_ib_i \mid a_i \in I, b_i \in J}$. 
+        Let $r$ be any element of $R$, and $\sum_{i=1}^n a_ib_i$ be an element of $IJ$. 
+        Then  \[ r(\sum_{i=1}^n a_ib+i) = \sum_{i=1}^n ra_ib_i = \sum_{i=1}^n (ra_i)b_i \in IJ \] 
+        since $ra_i \in I$ for any index $i$ as $I$ is a left ideal.
+    \end{itemize}
+
+    Next, if $I$ is also a right ideal, then for any element $\sum_{i=1}^n a_ib_i$ of $IJ$, it is the case that for all $i$, 
+    $a_ib_i$ is an element of $I$ since $I$ is a right ideal, and $a_ib_i$ is in $J$ as $J$ is a left ideal. 
+    Therefore, $\sum_{i=1}^n a_ib_i$ is in $I \cap J$ by closure over addition.
+
+    And lastly, if $a \in I \cap J$, then $a \in I$, so $a \in I + J$. Therefore, $I \cap J \subset I + J$.
+  }
+
+  \qs{}{
+    Let $I_1, \ldots, I_n$ be ideals in a commutative ring $R$, such that $I_i + I_j = R$ for every $i \ne j$. 
+    Show that $I_1 \cdots I_n = I_1 \cap \cdots \cap I_n$. By using Chinese remainder theorem, show also that 
+    $$(R/(I_1\cdots I_n))^\times \isom (R/I_1)^\times \times \cdots \times (R/I_n)^\times $$
+  }
+  \sol{
+    It is clear that $I_1 = I_1$, then the proof will follows the inductive method by assuming that 
+    $I_1\cdots I_{k-1} = I_1 \cap \cdots \cap I_{k-1}$, then show that $I_1\cdots I_k = I_1\cap \cdots \cap I_k$. 
+
+    Firstly, let denote $I_1 \cdots I_{k-1}$ as $J$. Then, it is clear that $JI_k \subset J \cap I_k$ by the property proved in the 
+    previous question. 
+
+    Now, as $I_i + I_j = R$ for any $i \ne j$, then $J + I_k = R$. So, it is possible to find $a \in J$ and $b \in I_k$ such that 
+    $a + b = 1$. 
+    Then, for any element $x \in J \cap I_k$, $x = x(a + b) = xa + xb = ax + xb$. Moreover, as, $a \in J$, $x \in I_k$, $x \in J$, and 
+    $b \in I_k$, it follows that $ax + xb \in JI_k$. Therefore, $JI_k = J\cap I_k$. 
+
+    By induction, $I_1 \cdots I_n = I_1 \cap \cdots \cap I_n$
+
+    Next, let $\phi$ be a homomorphism $R \to R/I_1 \times R/I_2 \times \cdots \times R/I_n$ given by
+    $r \mapsto (r + I_1, \ldots r + I_n)$.
+    So that \[ R/I_1\cdots I_n \isom R/I_1 \times \cdots \times R/I_n \]
+
+    Note that $I_1 \cdots I_n$ and $I_1 \cap \cdots \cap I_n$ might be used interchangably as they are equivalent.
+
+    Now, consider if $a$ is a unit, so there exist $b$ such that $ab = 1 + I_1\cdots I_n$. 
+    This means that $ab = 1 + I_i$ for every $1 \le i \le n$.
+    Thus, each component of $\phi(a)$ is a unit in its quotient field.
+
+    Note that since $I_i + I_j = R$ for any $i \ne j$, the chinese remainder theorem is applicable.
+    For the other direction, let $(a_1 + I_1, \ldots, a_n + I_n)$ be an element in $\phi(R)$ such that $a_i$ is unit in $R/I_i$. 
+    Then, let $a_i^{-1}$ be each of the inverse. By the chinese remainder theorem, there is an element $a \in R$ such that 
+    $\phi(a) = (a_1 + I_1, \ldots, a_n + I_n)$ and element $b$ such that $\phi(b) = (b_1 + I_1, \ldots, b_n + I_n)$.
+
+    Then, \[ \phi(ab) = \phi(a)\phi(b) = (1 + I_1, \ldots, 1 + I_n) \]
+    This means that $\phi(ab) = \phi(1)$. Thus, $ab \in \ker{\phi}$.
+
+    Thus, the homomorphism $\phi$ restricted under $R^\times$ shows the isomorphism 
+    \[ \left(\frac{R}{I_1 \cdots I_n}\right)^\times \isom 
+    \left(\frac{R}{I_1}\right)^\times \times \cdots \times \left(\frac{R}{I_n}\right)^\times \]
+  } 
+
+  \qs{}{
+    Let $S$ be a multiplicative subset of a commutative ring $R$. Let $S^{-1}R$ be the set of equivalence classes under $\sim$,
+    where $(r, s) \sim (r', s')$ if there exists $t \in S$ such that $t(rs' - r's) = 0$. We denote by $r/s$ the class of $(r, s)$.
+
+    \begin{enumerate}
+      \item Show that the addition and the multiplicative defined by $r/s + r'/s' := (rs' + r's)/ss'$ and 
+        $(r/s) \cdot (r'/s') := rr'/ss'$ are well-defined.
+
+      \item Let $I$ be an ideal of $R$. Show that $S^{-1}I := \set{r/s \mid r \in I, s \in S}$ is an ideal in $S^{-1}R$.
+
+      \item Let $f: R \to S^{-1}R$ be the ring homomorphism given by $r \mapsto rs/s$ for $s \in S$. Prove that if $J$ is an ideal of 
+        $S^{-1}R$, then $f^{-1}(J)$ is an ideal in $R$ and $S^{-1}(f^{-1}(J)) = J$.
+    \end{enumerate}
+  }
+  \sol{
+    \begin{enumerate}
+      \item Let $r/s = a/b$ and $r'/s' = a'/b'$, then let $t(rb - as) = t'(r'b' - a's') = 0$.
+
+        For addition, \[ r/s + r'/s' = \frac{rs' + r's}{ss'} = \frac{ab' + a'b}{bb'} = a/b + a'/b' \]
+        because there exists  $\bar t = tt'$ such that 
+        \eqs{ \bar t ((rs' + r's)(bb') - (ab' + a'b)(ss')) &= tt'((rs' + r's)(bb') -(ab' + a'b)(ss')) \\ 
+                                                           &= tt'(rb - as)(s'b') + tt'(r'b' - a's')(bs) \\ 
+                                                           &= t'0(s'b') + t0(bs) \\ 
+                                                           &= 0
+        }
+        Therefore, addition is well-defined.
+
+        Next, for multiplication, \[ r/s \cdot r'/s' = \frac{rr'}{ss'} = \frac{ra'}{sb'} = \frac{aa'}{bb'} = a/b \cdot a'/b'  \]
+        because there exists $\bar t = tt'$ such that 
+        \eqs{ \bar t (rr'bb' - aa'ss') &= t ((rb)(t'r'b') - (as)(t'a's')) \\ 
+                                       &= t ((rb)(t'a's') - (as)(t'a's')) \\
+                                       &= (0)(t'a's') = 0
+        }
+        Therefore, multiplication is well-defined.
+
+      \item Firstly, $S^{-1}I$ is a subgroup of $S^{-1}I$ because it is a subset that contain $0 = 0/s$ as $I$ contains $0$. 
+        It has closure since $I$ has closure over $R$. 
+        And every element has an inverse because $I$ is a group and $r/s + -r/s = 0$ for any element $r$, when $-r$ is the 
+        additive inverse of $r$.
+
+        Moreover, let $i/s \in S^{-1}I$ be any element and $r/s' \in S^{-1}R$ be any element.
+        Then, $r/s' \cdot i/s = ri/s's \in S^{-1}I$ since $s's \in S$ as it is a multiplicative set. 
+        And $ri \in I$ since $I$ is an ideal.
+        As the ring is commutative, then $I$ is an ideal.
+
+      \item Let $J = \set{ j/s }$ be an ideal of $S^{-1}R$. 
+        Then, \eqs{ f^{-1}(J) &= \set{a \mid f(a) \in J} \\ 
+                              &= \set{a \mid as/s = j/s' \; \exists j/s' \in J} \\
+                              &= \set{a \mid t(as' - j) = 0 \; \exists t} \\ 
+        }
+        Moreover, as $J$ is an ideal, then, for $x/y \in S^{-1}R$, it follows that $xj/ys \in J$ for $j/s \in J$.
+        So it follows that for any element $a \in f^{-1}(J)$ and $r \in R$, 
+        the product $ra = ar$ has the property that $t((ar)s(ss') - (jrs)s) = trss(as' - j) = 0$ since $rs/s \cdot j/s' = jrs/s's \in J$.
+        Which assert that $ra \in f^{-1}(J)$, therefore, $J$ is an ideal of $R$.
+    \end{enumerate}
+  }
+
+  \qs{}{
+    Prove that the product $\Real \times \Int$ of the ring of real numbers and the ring of integers is not an integral domain. 
+    Prove also that any ideal in $\Real \times \Int$ is generated by a single element.
+  }
+  \sol{
+    Consider that $(0, 1)$ and $(1, 0)$ are both an element of $\Real \times \Int$, and that both are non-zero. 
+    But $(0, 1)(1, 0) = (0, 0)$. Therefore, there exist zero divisors in $\Real \times \Int$. So, the ring is not an integral domain.
+    
+    Now, let $I$ be any ideal in $\Real\times\Int$. Let $x = (x_1, x_2)$ be the element of $I$ that is positive and the smallest
+    in the integer component.
+    Note that $(a, 1) \in \Real\times\Int$ for any $a \in \Real$, so $(a, 1)(x_1, x_2) \in I$ since $x \in I$. 
+    This means that the first component can be any real number since it is possible to find $a = x_1^{-1}$ 
+    such that $(a, 1)(x_1, x_2) = (1, x_2)$ as $\Real$ is a field.
+
+    Now, as $x \in I$, then $(x) \subset I$ since $I$ must contains $x$ and elements generated by $x$.
+    But if there is an element $y = (y_1, y_2) \in I - (x)$, then $x \not\vert y$ with $x_2 < y_2$. Then let $y_2 = q(x_2) + r$ with 
+    $r < x_2$. Now, $(y_1, y_2) = (y_1x_1^{-1}, q)(x_1, x_2) + (0, r)$ shows that $(0, r) \in I$ by the closure of ideal. 
+    But as $r < x_2$, this element contradicts the assumption of $x$ at the start. Therefore, there must not be an element 
+    $y \in I - (x)$. That is, $I = (x)$.
+  } 
+ 
+  \qs{}{
+    Let $p$ be a prime such that $p \equiv 1 \pmod 4$
+    \begin{enumerate}
+      \item Show that there exists an integer $a$ such that $p$ divides $a^2 + 1$. 
+      \item Prove that $p$ is not irreducible in $\Int[\sqrt{-1}]$. Deduce that there exist integers $b$ and $c$ such that 
+        $p = b^2 + c^2$
+    \end{enumerate}
+  }
+  \sol{
+    \begin{enumerate}
+      \item Since $p$ is prime, the group $(\ZMod[p])^\times$ is cyclic. Let $g$ be the generator of said group. 
+
+        Then $(\ZMod[p])^\times = \set{g, g^2, \cdots, g^{p-1}}$ and $g^{p-1} = 1$ as the group is cyclic. 
+        Since there is $p-1 = 4k$, for some integer $k$, elements in the group, it is possible to choose 
+        \[ h = g^{\frac{p-1}{4}} \].
+        Then, $h^2 = g^{\frac{p-1}{2}} = -1$ since ${g^{\frac{p-1}{2}}}^2 = 1$ and $g^{\frac{p-1}{2}} \ne 1$
+
+        Therefore, $h^2 + 1 = 0$ in the ring $\ZMod[p]$, which means that $p$ divides $h^2 + 1$.
+
+      \item Firstly, let $i = \sqrt{-1}$.
+        Since $p$ divides $a^2 + 1$ for some integer $a$, then $p$ divides $(a + i)(a - i)$. 
+        Assuming that $p$ is prime in $\Int[i]$, it must follow that $p \mid (a + i)$ or $p \mid (a - i)$. 
+        If $p \mid (a + i)$, then $p(x + yi) = (a + i)$ for some $x, y \in \Int$. But then $py = 1$ which is impossible as $p > 1$.
+        The same argument also shows that $p$ does not divide $(a - i)$. Thus, $p$ is not prime, and therefore not irreducible in 
+        $\Int[i]$ as it is a PID.
+
+        Then consider $p = (a + bi)(c + di)$ as a product of some non units. 
+        Then, the norm follows $p^2 = (a^2 + b^2)(c^2 + d^2)$ as integer but $(a^2 + b^2) \ne 1$ and $(c^2 + d^2) \ne 1$. 
+        And $p$ is a prime in $\Int$, therefore, $(a^2 + b^2) = p$. 
+
+    \end{enumerate}
+  }
+  
+  \qs{}{
+    Show that $\Int[\sqrt{-2}] := \set{a + b\sqrt{-2} \mid a, b \in \Int} \subset \Comp$ is a Euclidean domain. 
+    Find also $(\Int[\sqrt{-2}])^\times$.
+  }
+  \sol{
+    Let $\phi(x) = \phi(x_1 + x_2\sqrt{-2}) = \abs{x_1 + x_2\sqrt{-2}}^2 = x_1^2 + 2x_2^2$
+
+    Let $x = x_1 + x_2\sqrt{-2}, y = y_1 + y_2\sqrt{-2}$ be two elements in $\Int[\sqrt{-1}]$ with $y \ne 0$. 
+    Then, \[ x/y = \frac{x_1 + x_2\sqrt{-2}}{y_1 + y_2\sqrt{-2}} = \frac{(x_1 + x_2\sqrt{-2})(y_1 + y_2\sqrt{-2})}{y_1^2 + y_2^2} \]
+    Since $x/y = u + v\sqrt{-2}$ for which $u, v \in \Rat$, there is $u', v' \in \Nat$ such that 
+    $\abs{u' - u} \le 1/2$ and $\abs{v' - v} \le 1/2$. Denote $u' + v'\sqrt{-2}$ as $z$
+
+    If $u' = u$ and $v' = v$, then $x = zy + 0$, Otherwise, write $x = zy + r$.
+    From this equation, 
+    \[ \phi(r) = \abs{x - zy}^2 = \abs{y}^2\abs{x/y - z}^2 = \abs{y}^2(\abs{u' - u}^2 + \abs{v' - v}^2) \le \frac{\abs{y}^2}{4} < \phi(y) \] 
+    Therefore, $\Int[\sqrt{-2}]$ is a Euclidean ring.
+
+    Moreover, $\Int[\sqrt{-2}]$ is a subring of $\Comp$, therefore, as $\Comp$ is an integral domain, $\Int[\sqrt{-2}]$ 
+    is an integral domain.
+
+    Next, the unit of the ring consists of only $1$ and $-1$.
+    This will be proven in the next question, the result shows that $\Int[\sqrt{-2}]^\times = \set{a + b\sqrt{-2} \in R \mid a^2 + 2b^2 = 1}$. However, since $b$ is an integer, the units of the ring are only 
+    \[ \Int[\sqrt{-2}]^\times = \set{a \mid a^2 = 1} = \set{ \pm 1} \]
+  }
+
+  \qs{}{
+    Let $R = \Int[\sqrt{-d}] := \set{a + b\sqrt{-d} \mid a, b \in \Int} \subset \Comp$ with a positive square free integer $d$.
+    \begin{enumerate}
+      \item Show that the norm map $N: R \to \Int$ defined by $N(a + b\sqrt{-d}) = a^2 + db^2$ is multiplicative: 
+        $N(xy) = N(x)N(y)$ for all $x, y \in R$.
+      \item Prove $R^\times = \set{x \in R \mid N(x) = 1}$ and compute $R^\times$ for all $d$.
+      \item Show that if $N(x)$ is a prime, then $x$ is irreducible. Give an example such that the converse does not hold.
+    \end{enumerate}
+  }
+  \sol{
+    \begin{enumerate}
+      \item For any $x, y \in R$, let denote $x = x_1 + x_2\sqrt{-d}$ and $y = y_1 + y_2\sqrt{-d}$. 
+        Then, \[ xy = (x_1 + x_2\sqrt{-d})(y_1 + y_2\sqrt{-d}) = (x_1y_1-dx_2y_2) + (x_1y_2 + x_2y_1)\sqrt{-d} \]
+        Now, the norm of the product is 
+        \eqs{ N(xy) &= (x_1y_1-dx_2y_2)^2 + d(x_1y_2 + x_2y_1)^2 \\ 
+                    &= x_1^2y_1^2 -2dx_1y_1x_2y_2 + d^2x_2^2y_2^2 + dx_1^2y_2^2 + 2dx_1y_2x_2y_1 + dx_2^2y_1^2 \\
+                    &= x_1^2y_1^2 + dx_2^2y_1^2 + dx_1^2y_2^2 + d^2x_2^2y_2^2 \\
+                    &= (x_1^2 + dx_2^2)(y_1^2 + dy_2^2) \\
+                    &= N(x)N(y) \\
+        }
+        Therefore, the norm is multiplicative.
+      \item If $xy = 1$, then $N(xy) = N(x)N(y) = N(1)$. However, $N(1) = 1$. and $N(x) \in \Int^+$ for any $x \in R$. 
+        Therefore, it must necessarily follow that $N(x) = N(y) = 1$. This means that an element $x$ has an inverse implies $N(x) = 1$.
+       
+        Next, if for $x = x_1 + x_2\sqrt{-d}$, if $N(x) = 1$, then $1 = x_1^2 + dx_2^2 = (x_1 + x_2\sqrt{-d})(x_1 - x_2\sqrt{-d})$.
+        This means that $N(x) = 1$ implies that $x$ is invertible.
+
+        Now, assume that $N(x) = 1$ for some element $x = x_1 + x_2\sqrt{-d}$. Then $x_1^2 + dx_2^2 = 1$.
+        For $d > 1$, that means that $x_1^2 = 1$ and $x_2 = 0$ since if $0 \ne x_2 \in \Int$, then $dx_2^2 \ge d > 1$. 
+        So, $R^\times = \set{ \pm 1}$.
+        If $d = 1$, then $x_1^2 = 1$ and $x_2 = 0$ is still answers, but also $x_2^2 = 1$ and $x_1 = 0$ which gives $i, -i$ as the
+        other units. But if $\abs{x_2} > 1$, then $N(x) > x_1^2 + x_2^2 > 1$, so $x$ is not a unit.
+
+      \item Let $x$ be an element and $N(x)$ is prime. Then, if $x = ab$ for some element $a, b \in R$. It must be the case that either 
+        $N(a) = 1$ or $N(b) = 1$ because $N(x) = N(a)N(b)$ is prime. Therefore, either $a \in R^\times$ or $b \in R^\times$. 
+        So, $x$ is irreducible.
+
+        For $d = 1$, notice that there is no two square that sum to $3$, this is because the smallest two squares are $1$ and $4$. 
+        Therefore, there is no element in $\Int[\sqrt{-1}]$ with norm $3$. So, $3$ is irreducible because if it is, then $3 = ab$ for 
+        some element $a, b$ with $N(a) \ne 1$ and $N(b) \ne 1$, so $N(a) = 3$, which is impossible. However, $N(3) = 9$ is not prime. 
+
+        For $d > 1$, if $d$ is even, then, $(2 + \sqrt{-d})$ has norm $4 + d$ which is even, thus not a prime. 
+        Moreover, if there is a non-unit product $ab = (2 + \sqrt{-d})$, then $N(a) \le \frac{d}{2} + 2 < d$. 
+        But element with norm less than $d$ are those with only integer component and not the imaginary part. 
+        But $ab \in \Int$ when $a \in \Int$ and $b \in \Int$. 
+        Therefore, $(2 + \sqrt{-d})$ is irreducible. 
+
+        For $d > 1$ and $d$ is odd, consider that $(1 + \sqrt{-d})$ has norm $1 + d$, which is even, thus not prime. 
+        But if $(1 + \sqrt{-d}) = ab$, then $a$ must be an element with norm not exceding $\frac{1 + d}{2} < d$.
+        However, such elements are those with only integer component and not the imaginary part. 
+        But $ab \in \Int$ when $a \in \Int$ and $b \in \Int$. 
+        Therefore, $(1 + \sqrt{-d})$ is irreducible. 
+
+    \end{enumerate}
+  }
+\end{document}

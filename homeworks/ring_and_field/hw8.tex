@@ -1,0 +1,223 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Modern Algebra 2 - MAS312 Homework 8}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+
+  \qs{}{
+    Let $f = x^p - x - a \in F[x]$, where $F$ is a field of characteristic $p$. Show that $f$ is separable over $F$.
+    Show also that if $\alpha$ is a root of $f$, then so is $\alpha + i$ for all $0 \le i \le p-1$.
+  }
+  \sol{
+    Notice that if $\alpha$ is a root of $f$, then $\alpha^p - \alpha - a = 0$, this means that 
+    \[ (\alpha+1)^p - \alpha - a = \alpha^p + 1^p -\alpha - 1 - a = \alpha^p - \alpha - a = 0 \]
+    So, $\alpha + 1$ is also a root of $f$.
+
+    Then, by induction, assume that $\alpha + n$ is a root of $f$, then $\alpha + n + 1$ is a root of $f$, therefore, $\alpha + i$
+    is a root of $f$ for all $i \in \mathbb F_p$.
+
+    Now, as $\alpha, \alpha + 1, \alpha + 2, \cdots, \alpha + p - 1$ are $p$ distinct roots of of $f$, then $f$ must be separable 
+    over $F$.
+  }
+
+  \qs{}{
+    Assume that the polynomial $f$ in problem $1$ is irreducible over $F$. Determine $\Gal(F(\alpha)/F)$, where 
+    $\alpha$ is a root of $f$.
+  }
+  \sol{
+    Let $G = \Gal(F(\alpha)/F)$. Then firstly, $F(\alpha)$ is the splitting field of $f$ because all of the roots of $f$ 
+    is contained in $F(\alpha)$. This means that $F(\alpha)/F$ is normal, and separable, thus galois.
+    Moreover, $[F(\alpha): F] = p$ since the minimal polynomial of $\alpha$ is of degree $p$.
+    This means that $\abs{G} = p$, therefore, $G$ must be isomorphic to $\ZMod[p]$.
+  }
+
+  \qs{}{
+    Let $p$ be a prime and let $E/F$ be a Galois extension such that $\Gal(E/F) \isom \ZMod[p^3]$. 
+    Suppose that there is an intermediate field $K$ such that $[E: K] = p$. Show any intermediate field $M \ne E$ between 
+    $E$ and $F$ is contained in $K$.
+  }
+  \sol{
+    By the Galois correspondence theorem, $K$ corresponds to the subset $H < G = \Gal(E/F)$ of order $p$. 
+    Notice that as $G$ is cyclic, then the cyclic subgroup of order $p$ is unique in $G$, and $H$ is that subgroup.
+    Now, let $M$ be any intermediate subfield between $E$ and $F$, with $M \ne E$, then $M$ corresponds to a subgrop $N < G$, 
+    where $N = \Gal(E/M)$. Then, as $N < G$, $N$ must either have degree $1$, $p$, $p^2$, or $p^3$. 
+
+    As $E/F$ is Galois, then $E/F$ is normal and separable. Notice that for any subfield $K$, $E/K$ need to be normal 
+    and separable too, by the properties of normal and separable extensions. So, $E/K$ is Galois
+    
+    \begin{itemize}
+      \item If $\abs{N} = 1$, then $[E: M] = 1$, which is $E = M$, which is not considered.
+      \item If $\abs{N} = p$, then $N = H$ by the uniqueness of cyclic group of order $p$, thus $M = K$, so $K$ contains $M$.
+      \item If $\abs{N} = p^2$, then $N$ is a group of order $p^2$, which must have a subgroup of order $p$. As $N < G$, it follows that a subgroup of order $p$ of $N$ must be a subgroup of order $p$ of $G$. Since the subgroup is unique, then $H < N$.
+      \item If $\abs{N} = p^3$, then $[E: M] = p^3$, which is $M = F$, so $M$ is contained in $K$.
+    \end{itemize}
+
+    What is left to show is that when $H < N < G$, then $K$ contains $M$ where $H = \Gal(E/K)$ and $N = \Gal(E/M)$.
+    To begin, by the correspondence theorem, $K = E^{H}$ and $M = E^{N}$. Now, if every automorphism in $N$ fixes $M$, then each of the 
+    automorphisms in $K$, is also an element of $N$, must fix $M$. This means that the fix point $E^H$ must contains $M$. Thus, 
+    $K$ contains $M$.
+  }
+
+  \qs{}{
+    Let $p$ be a prime integer and let $\alpha = \eta + \eta^{-1}$, where $\eta$ is a primitive $p$-th root of $1$. 
+    Compute $[\Rat(\alpha) : \Rat]$.
+  }
+  \sol{
+    If $p = 2$, then $\eta = -1$ and $\alpha \in \Rat$, so $[\Rat(\alpha) : \Rat] = 1$.
+
+    Otherwise, $p$ is an odd prime.
+    Notice that $\Rat \subset \Rat(\alpha) \subsetneq \Rat(\eta)$ because $\Rat(\eta)$ contain a complex number while 
+    $\alpha = \eta + \eta^{-1} = \cos(\pi/p) + i\sin(\pi/p) + \cos(-\pi/p) + i\sin(-\pi/p) = 2\cos(\pi/p) \in \Real$.
+    Notice that $\Rat(\eta)/\Rat(\alpha)/\Rat$ is a field extension, with $\Rat(\eta)/\Rat$ being a cyclotomic extension, therefore, 
+    galois, and $[\Rat(\eta) : \Rat] = p-1$. This means that $\Rat(\eta)/\Rat(\alpha)$ is also galois by the property of normal group.
+
+    Considering that $\Gal(\Rat(\eta)/\Rat)$ is the set of $\Rat$-automorphism of $\Rat(\eta)$, thus, as the extension is 
+    cyclotomic, the galois group is the cyclic group permuting the roots of unity, so let $\sigma_i \in \Gal(\Rat(\eta)/\Rat)$ such 
+    that $\sigma_i : \eta \mapsto \eta^i$ for $1 \le i < p$.
+
+    Now \[ \sigma_i(\alpha) = \sigma_i(\eta + \eta^{-1}) = \eta^{i} + \eta^{-i} \], therefore, only $i = \pm 1$ fixes $\alpha$.
+
+    This means that $\Gal(\Rat(\eta)/\Rat(\alpha)) = \set{\sigma_1, \sigma_{-1}}$, therefore, $[\Rat(\eta) : \Rat(\alpha)] = 2$.
+    Lastly, by the tower rule, $[\Rat(\alpha) : \Rat] = \frac{p - 1}{2}$
+  }
+
+  \qs{}{
+    Let $\eta$ be a primitive $5$th root of $1$. Find an intermediate field $K$ between $\Rat(\eta)$ and $\Rat$ such that 
+    $[K : \Rat] = 2$. 
+  }
+  \sol{
+    Notice that the minimal polynomial for $\eta$ is $f(x) = x^4 + x^3 + x^2 + x + 1$, so $[\Rat(\eta) : \Rat] = 4$.
+    Now, the galois group $\Gal(f) \isom (\ZMod[5])^\times \isom C_4$ as $\Rat(\eta)$ is a cyclotomic extension.
+    Let $\sigma \in \Gal(f)$ sends $\eta$ to $\eta^2$, then it is of degree $4$ as $\sigma^2(\eta) = \sigma(\eta^2) = \eta^4 \ne \eta$.
+    So, $\sigma^2$ is an element of degree 2, making a subgroup $\set{\sigma^2, id}$.  
+
+    Consider a subfield $K = \Rat(\eta)^{\set{\sigma^2, id}}$, then, $[\Rat(\eta): K] = 2$ by the galois correspondence theorem, 
+    which means that $[K: \Rat] = 2$ by the tower rule.
+
+    To be more specific, let $\alpha = \eta + \eta^{-1}$. Then, $[ \Rat(\alpha) : \Rat ] = \frac{5 - 1}{2} = 2$ 
+    by the proof shown in the previous problem.
+  }
+
+  \qs{}{
+    Find the 24th cyclotomic polynomial $\Phi_{24}(x)$ over $\Rat$.
+  }
+  \sol{
+    Notice that $\Phi_8(x) = \frac{x^8 - 1}{\Phi_1(x)\Phi_2(x)\Phi_4(x)} = \frac{x^8 - 1}{x^4 - 1} = x^4 + 1$.
+
+    Then, 
+    \eqs{ \Phi_{24} &= \frac{x^{24} - 1}{\Phi_1(x)\Phi_2(x)\Phi_3(x)\Phi_4(x)\Phi_6(x)\Phi_8(x)\Phi_{12}(x)} \\ 
+                    &= \frac{x^{24} - 1}{\Phi_8(x)(x^{12} - 1)} \\
+                    &= \frac{x^{12} + 1}{\Phi_8(x)} \\
+                    &= \frac{x^{12} + 1}{x^4 + 1} \\ 
+                    &= x^8 - x^4 + 1
+    }
+    
+    Therefore, $\Phi_{24}(x) = x^8 - x^4 + 1$.
+  }
+
+  \qs{}{
+    Let $p$, $q$, $r$, $s$ be distinct prime integers and $\alpha = \sqrt[p]{q} + \sqrt[r]{s}$. Calculate $\deg(\alpha)$ over $\Rat$.
+  }
+  \sol{
+    Consider that $[\Rat(\sqrt[p]{q}) : \Rat] = p$ as the minimal polynomial of $\sqrt[p]{q}$ over $\Rat$ is $x^p - q$, which is 
+    irreducible over $\Rat$ by the Eisenstein criterion. Similarly $[\Rat(\sqrt[r]{s}) : \Rat] = r$ by the same logic.
+
+    Then, $[\Rat(\sqrt[p]{q}, \sqrt[r]{s}) : \Rat] = pr$ since $p$ and $r$ are distinct primes that both divide 
+    $[\Rat(\sqrt[p]{q}, \sqrt[r]{s}) : \Rat]$ by the tower rule. 
+
+    As $\Rat(\sqrt[p]{q}, \sqrt[r]{s}) = \Rat(\sqrt[r]{s})(\sqrt[p]{q})$ is a degree $p$ extension over $\Rat(\sqrt[r]{s})$, then 
+    the set $\set{\sqrt[p]{q}, \sqrt[p]{q}^2, \ldots, \sqrt[p]{q}^p}$ is a linearly independent set over $\Rat(\sqrt[r]{s})$.
+
+    If $\Rat(\alpha)$ is a degree $p$ extension over $\Rat$, then there exist a minimal polynomial $f$ of degree $p$ as follow: 
+    \[ f(\alpha) = f(\sqrt[p]{q} + \sqrt[r]{s}) = f_0 + f_1 (\sqrt[p]{q} + \sqrt[r]{s}) + \cdots + f_p(\sqrt[p]{q} + \sqrt[r]{s}) = 0 \]
+    which is that there is a polynomial $g$ of degree $p$ over $\Rat(\sqrt[p]{q})$ such that 
+    $g(\sqrt[p]{q}) = 0$ by expanding $f$ into a polynomial in $\Rat(\sqrt[p]{q})$.
+
+    However, as $g(\sqrt[p]{q})$ is a linear combination of $\set{\sqrt[p]{q}, \sqrt[p]{q}^2, \cdots, \sqrt[p]{q}^p}$, which is 
+    linearly independent, then $g_i = 0$ for all $i$. But, by direct expansion of $g$, the coefficient $g_{p-1}$ is 
+    $g_{p-1} = f_p(p)(\sqrt[r]{s}) + f_{p-1}$. This yields a contradiction as 
+    \[ 0 = g_{p-1} = f_p(p)(\sqrt[r]{s}) + f_{p-1} \] implies 
+    \[ \sqrt[r]{s} = \frac{-f_{p-1}}{pf_p} \] where $p$ is a prime integer, $f_i$ are rational, but $\sqrt[r]{s}$ is irrational.
+
+    This means that $\Rat(\alpha)$ is not a degree $p$ extension. Similarly, $\Rat(\alpha)$ cannot be a degree $r$ extension over $\Rat$.
+
+    Next, without loss of generality, $r < p$, otherwise, swap $r, p$ and $q, s$ to get to the same point.
+    Now, assume that $\alpha$ is rational, then $\sqrt[r]{s} = \alpha - \sqrt[p]{q}$, which taking the power of $r$ to both size yields
+    \[ s = \alpha^r - \pmat{r}{1}\alpha^{r-1}\sqrt[p]{q} + \cdots - \sqrt[p]{q}^r \]
+    As $\set{\sqrt[p]{q}, \cdots, \sqrt[p]{r}}$ is linearly independent (as a subset of the basis) and $\alpha \in \Rat$, 
+    then, $s = \alpha^r$, which is a contraction as 
+    \[ \alpha^r > \sqrt[p]{q}^r + \sqrt[r]{s}^r > s \]
+    
+    Therefore, $\alpha \notin \Rat$, which means that $[\Rat(\alpha) : \Rat] \ne 1$.
+
+    Lastly, as $[\Rat(\alpha) : \Rat]$ divides $pr$, but is not equal to $1, p, $ or $r$, then it must equal to $pr$.
+    Hence, $[\Rat(\alpha) : \Rat] = pr$.
+  }
+
+  \qs{}{
+    Determine the Galois group of $x^6 - 3$ over $\Rat(\sqrt{-3})$.
+  }
+  \sol{
+    Let $E$ be the splitting field of $x^6 - 3$ over $\Rat$.
+    Then, $E = \Rat(\eta, \sqrt[6]{3})$ where $\eta$ is the primitive $6^{th}$ roof of unity.
+    Then, $(\eta + \eta^2)^2 = \eta^2 + 2\eta^3 + \eta^4 = -2 - 1 = -3$. This is because $\eta^3 = -1$ and 
+    $\eta^2 + \eta^4 = \cos(\frac{4}{6}\pi) + i\sin(\frac{4}{6}\pi) + \cos(\frac86\pi) - i\sin(\frac86\pi) = -1$.
+
+    Therefore, $\sqrt{-3}$ is an element of $E$, which means that $E/\Rat(\sqrt{-3})/\Rat$ is a tower of field extension.
+
+    Now, $[E :\Rat] = [E: \Rat(\sqrt[6]{3})][\Rat(\sqrt[6]{3}): \Rat]$. Since $x^6 - 3$ is satisfied by $\sqrt[6]{3}$ and the polynomial 
+    is irreducible over $\Rat$ by the Eisenstein criterion, then $[\Rat(\sqrt[6]{3}) : \Rat] = 6$. Moreover, as the cyclotomic
+    $\Phi_6(x) = x^2 - x + 1$ is the minimal polynomial of $\eta$ over $\Rat$. Then, $[E : \Rat(\sqrt[6]{3})]$ is at most $2$.
+    Next, as $\eta \in E$ is a non-real complex number $e^{i\frac{\pi}{3}}$, then it is not in $\Rat(\sqrt[6]{3})$, a subfield of real 
+    numbers. Therefore, $[E : \Rat(\sqrt[6]{3})] = 2$, which means $[E: \Rat] = 12$.
+
+    Then, $[\Rat(\sqrt{-3}): \Rat] = 2$, since $x^2 + 3 = 0$ is the minimal polynomial. This implies that $[E : \Rat(\sqrt{-3})] = 6$.
+    As $\Gal(x^6 - 3) = \Gal(E/\Rat(\sqrt{-3}))$, then it is of order 6.
+
+    Consider $\sigma$ that fixes $\Rat$ and $\sigma: \sqrt[6]{3} \mapsto \sqrt[6]{3}\eta$ with $\sigma: \eta \mapsto \eta$. 
+    Then, it sends $\sqrt[6]{3}\eta^k$ to $\sqrt[6]{3}\eta^{k+1}$ as it is a field homomorphism. 
+    Moreover, $\sigma$ fixes $\Rat(\sqrt{-3})$ as it fixes $\eta$ and $\sqrt{-3} = \eta + \eta^2$. 
+
+    As $\sigma^2(\sqrt[6]{3}) = \sigma(\sqrt[6]{3}\eta) = \sqrt[6]{3}\eta^2 \ne \sqrt[6]{3}$ and 
+    $\sigma^3(\sqrt[6]{3}) = \sigma(\sqrt[6]{3}\eta^2) = \sqrt[6]{3}\eta^3 \ne \sqrt[6]{3}$, then $\sigma$ must be of order $6$.
+    This means that the galois group of $x^6 - 3$ over must isomorphic to the cyclic group $\ZMod[6]$.
+  }
+  \qs{}{
+    Show the only field automorphism of $\Real$ is the identity.
+  }
+  \sol{
+    Let $\phi$ be the field automorphism of $\Real$, then must send $1$ to $1$. This means it must be identity over $\Int$ by
+    the induction using $\phi(a + 1) = \phi(a) + \phi(1) = \phi(a) + 1$.
+    Then, it must fix $\Rat$ since $\phi(a/b) = \phi(a)/\phi(b) = a/b$ for all integer $a$ and $b$.
+
+    Suppose that $f$ is not an identity automorphism of $\Real$, then there is a point $x$ such that $f(x) \ne x$. 
+    Then, if $f(x) < x$, then $f(-x) = -f(x) > -x$, so there is a point $x$ such that $f(x) > x$.
+
+    Choose $q \in Rat$ such that $f(x) > q > x$, which exists by the denseness of $\Real$ so that $y = q - x$ is positive, 
+    thus there exists a real number $z$ such that $z^2 = y$.
+    Now, \[ q = f(q) = f(y + x) = f(y) + f(x) > f(y) + q = f(z^2) + q = f(z)^2 + q > q \]
+    yields a contradictions, thus, $f$ must only be the identity.
+  }
+
+  \qs{}{
+    Let $E = \set{\alpha \in \Comp \mid \alpha \text{ is algebraic over } \Rat}$. Show that $E$ is algebraically closed.
+  }
+  \sol{
+    Let $\beta$ be any algebraic element over $E$, then there is a minimal polynomial over $E$ that is satisfied by $\beta$.
+    Let that polynomial be $e_0 + e_1x + \cdots + e_nx^n$ for $e_i \in E$.
+
+    Consider that $\beta$ is also algebraic over $\Rat(e_0, \cdots, e_n)$ as the polynomial is also contained in 
+    $\Rat(e_0, \cdots, e_n)[x]$. This means that $\beta$ is also algebraic over $\Rat(e_0, \cdots, e_n)$.
+    So, $\Rat(e_0, \cdots, e_n, \beta)$ is algebraic, thus finite extension of $\Rat$.
+    This means that $\Rat(\beta)/\Rat$ must also be finite. Hence, $\beta$ is algebraic over $\Rat$.
+    As $\beta$ is algebraic over $E$, then $\beta \in \Comp$ as $\Comp$ is an algebraically closed field. 
+    Lastly, as $\beta \in \Comp$ and $\beta$ is algebraic over $\Rat$, then $\beta \in E$ by the definition.
+  }
+
+\end{document}

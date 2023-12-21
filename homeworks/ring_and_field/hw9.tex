@@ -1,0 +1,257 @@
+% chktex-file 44
+% chktex-file 8
+
+\documentclass{report}
+\input{../preamble}
+\input{../macros}
+
+\fancyhead[L]{Modern Algebra 2 - MAS312: Homework 9}
+\fancyhead[R]{\textbf{Touch Sungkawichai} 20210821}
+
+\begin{document}
+  \qs{}{
+    Show that an algebraically closed field is infinite.
+  }
+  \sol{
+    Assume that there is a finite field that is algebraically closed. Let the field be $\mathbb F_q$ where $q = p^n$ for some 
+    prime $n$.
+    Then, there exists a field extension $\mathbb F_{q^2}$ of $\mathbb F_q$ such that it is the splitting field of $x^{q^2} - x$.
+    As $\mathbb F_{q^2}$ is a finite extension of $\mathbb F_q$ such that $\mathbb F_q \ne \mathbb F_{q^2}$, then $\mathbb F_q$ is 
+    not algebraically closed by definition.
+  }
+  
+  \qs{}{
+    Let $\bar F$ be an algebraic closure of the finite field $\mathbb F_q$. Show that $\bar F$ is the union of all finite subfields.
+  }
+  \sol{
+    Notice that the splitting field of $x^{q^n} - x$ over $\mathbb F_q$ is $\mathbb F_q^n$. Therefore, for any $n$, 
+    $\mathbb F_{q^n}$ must be contained by the algebraic closure $\bar F$.
+    This means that $\bigcup_{n \ge 1} \mathbb F_{q^n} \subset \bar F$.
+
+    Then, since any irreducible polynomial over $\mathbb F_q$ must have finite degree, say $m$, it follows that the splitting 
+    field of that polynomial is $\mathbb F_{q^m}$. As the splitting of any irreducible polynomial is a finite field, then it must 
+    split in $\bigcup_{n \ge 1} \mathbb F_{q^n}$. Thus, $\bar F \subset \bigcup_{n \ge 1} \mathbb F_{q^n}$.
+
+    This gives that $\bar F = \bigcup_{n \ge 1} \mathbb F_{q^n}$.
+
+    For any $n$, as $\mathbb F_{q^n}/\mathbb F_q$ is an algebraic extension, then $\mathbb F_{q^n}$ is a finite subfield of $\bar F$.
+    Thus, $\bar F$ is the union of all of its finite subfields as needed.
+  }
+
+  \qs{}{
+    Let $E/F$ be a Galois extension. Show that if the quotient group $E^\times/F^\times$ has an element of order $n$, then 
+    $E^\times$ has an element of order $n$.
+  }
+  \sol{
+    Since there is an element of order $n$, then, let that element be $\alpha$. So, $\alpha^n \in F^\times$ and 
+    $\alpha^k$ for any $k < n$ is not a member of $F^\times$. Let $f = x^n - \alpha^n$. 
+    As $f$ has a root in $E$ and $E$ is normal and separable, then $f$ must split in $E$
+    So, $f = (x - \beta_1) \cdots (x - \beta_n)$, where each of the $\beta_i$ is an element in $E^\times$ and $\beta_i \ne \beta_j$ 
+    for all $i \ne j$.
+
+    Then, create a set of elements $\set{\gamma_1, \ldots, \gamma_n}$ such that $\gamma_i = \beta_i/\alpha$, then 
+    $\gamma_i^n = \frac{\beta_i^n}{\alpha^n} = 1$. Moreover, as $\beta_i \ne \beta_j$ for $i \ne j$, then $\gamma_i \ne \gamma_j$ for 
+    $i \ne j$.
+
+    Since there are at least $n$ roots of $1$, which are $\gamma_1, \ldots, \gamma_n$ in the field $E$, then $\mu_n \in E^\times$.
+    Therefore, there is an element of order $n$, which is the primitive $n$th root in $E^\times$.
+  }
+
+  \qs{}{
+    Find $\Gal(E/\mathbb F_9)$ where $E$ denotes the splitting field of $x^{16} - 1$ over $\mathbb F_9$.
+  }
+  \sol{
+    Notice that $f(x) = x^{16} - 1$ is separable as $f'(x) \ne 0$ and $E$ is a splitting field, thus normal,
+    therefore, $E/\mathbb F_9$ is galois.
+
+    Consider that the degree of a primitive root of $x^{16} - 1 = (x^8 - 1)(x^8 + 1)$ is 16, then as $\mu_{16}$, the group of roots, 
+    is a subgroup of $E^\times$, the splitting field $E$ must be such that $16 \mid \abs{E^\times}$, 
+    which, the smallest such $E$ is $\abs{E} = 81$, as $E$ must also be of order $3^n$.
+    This means that the splitting field $E$ contains $\mathbb F_{81}$.
+
+    Now, $\mathbb F_{81}$ is the splitting field of 
+    \[ x^{81} - x = x(x^{80} - 1) = x(x^{16} - 1)(x^{64} + x^{48} + x^{32} + x^{16} + 1) \]
+    Thus, $E = \mathbb F_{81}$, which implies the degree $[E : \mathbb F_9] = 2$.
+
+    As the field extension is galois, then $\abs{\Gal(E/\mathbb F_9)} = 2$.
+    Therefore, $\Gal(E/\mathbb F_9) \isom \ZMod[2]$.
+  }
+
+  \qs{}{
+    Let $\mu_n$ be the group of $n$th root of $1$. Let $r = \lcm(m, n)$ and $s = \gcd(m, n)$. Show that 
+    $\Rat(\mu_n)\Rat(\mu_m) = \Rat(\mu_r)$ and $\Rat(\mu_n) \cap \Rat(\mu_m) = \Rat(\mu_s)$.
+  }
+  \sol{
+    Since $n \mid r$, then $\Rat(\mu_n) \subset \Rat(\mu_r)$ and since $m \mid r$, $\Rat(\mu_m) \subset \Rat(\mu_r)$. As 
+    two fields are contained in $\Rat(\mu_r)$, the composition, which is the smallest field containing both field,
+    must also be contained in $\Rat(\mu_r)$.
+    
+    Let $\eta_n$ be the primitive $n$th root of unity and $\eta_m$ be the primitive $m$th root. Then, 
+    as there exists $a, b$ such that $an + bm = \gcd(n, m)$, then there exist $an + bm \equiv 1 \pmod{\lcm(n, m)}$. 
+    Hence, $\eta^{an}\eta^{bm}$ is a primitive $r$th root of unity. Thus, $\mu_r \subset \Rat(\mu_n)\Rat(\mu_m)$, and therefore, 
+    $\Rat(\mu_r) \subset \Rat(\mu_n)(\mu_m)$
+
+    Next, as $s \mid n$ and $s \mid m$, then $\Rat(\mu_s) \subset \Rat(\mu_n) \cap \Rat(\mu_m)$ as $x^s - 1 \mid x^n - 1$ and similarly
+    for $x^m - 1$.
+
+    Now, as cyclotomic extensions are galois, then 
+    \[ \Gal(\Rat(\mu_n)\Rat(\mu_m) / \Rat(\mu_n)) \isom \Gal(\Rat(\mu_n) / \Rat(\mu_n) \cap \Rat(\mu_m)) \]
+    which gives that \[ \phi(\lcm(n, m)) = [\Rat(\mu_n)\Rat(\mu_m) : \Rat] = [\Rat(\mu_m): \Rat][\Rat(\mu_n) : \Rat][\Rat(\mu_n) \cap \Rat(\mu_m) : \Rat] \]
+    Thus, $[\Rat(\mu_n) \cap \Rat(\mu_m) : \Rat] = \frac{\phi(n)\phi(m)}{\phi(r)}$.
+    As \[ \frac{\phi(n)\phi(m)}{\phi(r)} = \frac{n\prod_{p\mid n}(1 - 1/p)\cdot m\prod_{p \mid m}(1 - 1/p)}{\lcm(n, m) \prod_{p \mid \lcm(n ,m)}(1 - 1/p)} = \gcd(n, m)\prod_{p \mid \gcd(n, m)}(1 - 1/p) = \phi(\gcd(n, m))  \]
+
+    Then, $\Rat(\mu_n) \cap \Rat(\mu_m) = \Rat(\mu_d)$
+  }
+
+  \qs{}{
+    Prove that $\Rat(\mu_n) \subseteq \Rat(\mu_m)$ if and only if $n \mid m$ or $n = 2r$ for some odd divisor $r$ of $m$.
+  }
+  \sol{
+    \twoways{
+
+      Since $\Rat(\mu_n) \subset \Rat(\mu_m)$, then 
+      $\Rat(\mu_{\gcd(n, m)}) = \Rat(\mu_n) \cap \Rat(\mu_m) = \Rat(\mu_n)$.
+      Let $d = \gcd(n, m)$, then $\phi(d) = \phi(n)$.
+
+      If $d = 1$, then $\phi(d) = \phi(n)$ means $\phi(n) = \phi(1) = 1$. Thus, $n = 1$ or $n = 2$, because if $n \ge 3$, then 
+      $\phi(n) \ge \phi(p)$ for some odd prime divisor $p$ of $n$. Thus, $\phi(n) \ge p-1 > 1$.
+      In the case that $n = 1$, $n \mid m$.
+      In the case that $n = 2$, $n = 2\cdot1$ where $1$ is an odd divisor of $m$.
+
+      Otherwise, $d > 1$ and as $d \mid n$, then it can be written as 
+      $d = 2^{a_0}p_1^{a_1}\cdots p_n^{a_n}$ and $n = 2^{b_0}p_1^{b_1}\cdots p_n^{b_n} q$ 
+      for some odd number $q$ not divisible by any $p_i$ for odd primes $p_i$ such that 
+      $a_i \ge 1$ except for $a_0 \ge 0$ and $b_i \ge a_i$ for all $i$.
+
+      Since $\phi(d) = \phi(n)$, then 
+      \[ \phi(2^{a_0})\phi(p_1^{a_1})\cdots\phi(p_n^{a_n}) = \phi(2^{b_0})\phi(p_1^{b_1})\cdots\phi(p_n^{b_n})\phi(q) \]
+      as for all any odd prime $p$ and $n \ge 1$, $\phi(p^{n+1}) = p\cdot\phi(p^n)$, then 
+      it must be the case that $b_i = a_i$ for all $i \ge 1$ and that $q = 1$.
+      Thus, it follows that $\phi(2^a_0) = \phi(2^b_0)$. As $\phi(1) = \phi(2) = 1$ and $\phi(2^{n+1}) = 2\phi(2^n)$ for $n > 1$, then 
+      either $a_0 = b_0$ or $a_0 = 0$ and $b_0 = 1$ must hold.
+
+      This means that $d = n$ in the first case, and $2d = n$ for an odd $d$ in the latter case.
+      If $d = n$, then $n \mid m$ and otherwise, $n = 2d$ for some $d \mid m$ such that $d$ is odd.
+
+      % If $n = 2r$ for some odd $r$, then $\Rat(\mu_n) = \Rat(\mu_r)$. 
+      % Then, it suffices to prove that $\Rat(\mu_n) \subseteq \Rat(\mu_m)$ implies $n \mid m$
+      % for any odd $n$, or $n$ such that $4 \mid n$.
+      %
+      % Let $\bar\mu_m = \mu_m \cup \set{ -x \mid x \in \mu_m }$
+      % If $m$ is even, then $\bar\mu_m = \mu_m$ and if $m$ is odd, then $\bar\mu_m = \mu_{2m}$
+      % Consider that $\Rat(\mu_m) = \Rat(\bar{\mu_m})$ since $-1 \in \Rat$.
+      %
+      % Let $m' = m$ if $m$ is even, and $m' = 2m$ otherwise, so that $\bar\mu_m = \mu_{m'}$
+      % Then, $\Rat(\mu_n) \subset \Rat(\mu_m) \subset \Rat(\mu_{m'})$
+      %
+      %
+      % If $n \mid m$, then the statement holds true, otherwise, $n \nmid m$ but $n \mid m'$, so it must be the case that $m' = 2m$.
+      % As $m' = 2m$, and $n \mid m'$, which $n \nmid m$, then $2 \mid n$ and $\frac{n}{2} \mid m$.
+      % This means that $n = 2r$ for some odd divisor $r$ of $m$, hence the statement holds true.
+      % \TODO
+    } {
+      If $n \mid m$, then let $dn = m$. Now, $x^m - 1 = x^{dn} - 1 = (x^n - 1)(x^{(d-1)n} + x^{(d-2)n} + \cdots + 1)$.
+      Thus, $x^n - 1 \mid x^m - 1$. This means that any root of $x^n - 1$ is a root of $x^m - 1$, thus $\mu_n \subseteq \mu_m$.
+      Therefore, $\Rat(\mu_n) \subseteq \Rat(\mu_m)$.
+
+      Otherwise, if $n = 2r$ but $n \nmid m$ for some odd divisor $r$ of $m$, then $m$ is odd, so $-1 \notin \mu_m$.
+      However, $\Rat(\mu_n) \subseteq \Rat(\mu_{2m})$ as $n \mid m$, and $\mu_{2m} = \mu_m \cup \set{-\eta \mid \eta \in \mu_m}$
+      As $(-\eta)^{2m} = {(-\eta)^m}^2 = {-1}^2 = 1$.
+      Therefore, $\Rat(\mu_{2m}) = \Rat(\mu_{m})$, which gives that $\Rat(\mu_n) \subseteq \Rat(\mu_{m})$.
+    }
+  }
+
+  \qs{}{
+    Find all roots of unity which are contained in $\Rat(\sqrt{-3})$
+  }
+  \sol{
+    As $\Rat(\sqrt{-3})$ is the splitting field of $f(x) = x^2 + 3$, and $\sqrt{-3} \notin \Rat$ then $[\Rat(\sqrt{-3}) : \Rat] = 2$.
+    Since the field group $\mu_n$ is cyclic, if $\Rat(\sqrt{-3})$ contains a primitive $n$ root of unity, then it must contain all the 
+    $n$th root of unity, which means that it must the splits $x^n - 1$, and therefore have degree $\phi(n)$.
+
+    Notice that $\phi(3) = \phi(4) = \phi(6) = 2$ are the only numbers with this property because for a prime $p > 3$,
+    $\phi(p) = p-1 > 2$, which means that for $n > 6$, $\phi(n) > \phi(2)\phi(3) > 2$.
+
+    Consider \[ \frac{\sqrt{-3} + 1}{2}^3 = \frac{\sqrt{-3}^3 + 3\sqrt{-3}^2 + 3\sqrt{-3} + 1}{8} = 1 \]
+    with $\frac{\sqrt{-3} + 1}{2} \ne 1$, therefore $\mu_3 \subset \Rat(\sqrt{-3})$. 
+    As $\mu_6 = \mu_3 \cup \set{-x \mid x \in \mu_3}$, then $\Rat(\mu_6) = \Rat(\mu_3)$, so $\mu_6 \subset \Rat(\sqrt{-3})$.
+    Lastly, as $6$ is the largest integer $n$ in which $\phi(n) = 2$, then there is no other root of unity in $\Rat(\sqrt{-3})$.
+  }
+
+  \qs{}{
+    Let $F$ be a field of characteristic $p \ne 0$ and let $L/F$ be a field extension.
+    Show that if $\alpha \in L$ is separarble over $F$, then $F(\alpha) = F(\alpha^p)$
+  }
+  \sol{
+    Generally, $F(\alpha^p) \subset F(\alpha)$, leaving only to show that $F(\alpha) \subset F(\alpha^p)$.
+    Let $m_{\alpha, F}$ be the minimal polynomial of $\alpha$ over $F$ and $m_{\alpha, F(\alpha^p)}$ be the minimal polynomial of 
+    $\alpha$ over $F(\alpha^p)$. Then, as $F(\alpha^p)$ is an extension of $F$, then 
+    \[ m_{\alpha, F(\alpha^p)} \mid m_{\alpha, F} \]
+
+    From the assumption, $\alpha$ is separable over $F$, thus $m_{\alpha, F}$ is separable. This implies that $m_{\alpha, F(\alpha^p)}$ 
+    as it divides a separable polynomial. 
+    
+    However, notice that $x^p - \alpha^p$ has $\alpha$ as a root, and \[ x^p - \alpha^p = (x-\alpha)^p \]
+    This means that $m_{\alpha, F(\alpha^p)} = (x - \alpha)^k$ for some $k < p$.
+    However, as $m_{\alpha, F(\alpha^p)}$ is separable, then $m_{\alpha, F(\alpha^p)} = x - \alpha$, otherwise, there is a root with 
+    multiplicity greater than $1$, thus not separable.
+
+    As $m_{\alpha, F(\alpha^p)} = x - \alpha$, then $F(\alpha^p, \alpha) = F(\alpha)$ is a field extension of degree 1 over 
+    $F(\alpha^p)$. This lead to a conclusion that, $F(\alpha^p) = F(\alpha)$.
+  }
+
+  \qs{}{
+    Let $A$ be the sum of all elements of a finite field $\mathbb F_q$ and let $B$ be the product of all non-zero elements of 
+    $\mathbb F_q$. Compute $A + B$. 
+  }
+  \sol{
+    Let $\chr(\mathbb F_q) = p > 0$.
+    It is possible to label the elements of $\mathbb F_q$ as $a_1, \ldots, a_q$ such that $a_q = 0$ and for all $i$, 
+    $a_i + a_{q-i} = 0$ as every element in a field has a additive inverse. Then, if $p = 2$, then there will be one element 
+    in which $i = q-i$, which is $i = \frac{q}{2}$, and $a_{q/2} + a_{q/2} = 0$ gives that $a_{q/2} = q/2$
+
+    For $p \ne 2$, the elements can be label in another way, which is $m_1, \ldots, m_q$ where $m_q = 0$, $m_1 = 1$, $m_{q-1} = -1$ and
+    for other $i$, $m_i \cdot m_{q-i} = 1$. This is because any element of a field, apart from $0$ has an inverse. And as for $p \ne 2$,
+    there is only 2 roots of $x^2 - 1$, which are $x = 1$ and $x = -1$, then every element apart from $0, 1, -1$ has 
+    inverse that is differred from itself. 
+
+    For $p = 2$, there is only 1 root of $x^2 - 1 = (x - 1)^2$, which is $1$, thus, the 
+    other $q-2$ elements apart from $1$ and $0$ has an inverse that is distinct from itself. So the label is set such that 
+    $m_i \cdot m_{q-i+1} = 1$ for all $2 \le i < q$ instead.
+
+    If $p \ne 2$, there are $q - 1$ non-zero elements, which is even. Therefore, 
+    \[ \sum_{a \in \mathbb F_q} a = \sum_{i = 1}^q a_i = a_1 + a_q + \sum_{i = 2}^{q-1} a_i
+    = a_1 + a_q + \sum_{i=2}^{\frac{q}{2}} a_i + a_{q-i} = 1 + 0 + \sum_{i=2}^{\frac{q}{2}} 0 = 1  \]
+
+    \[ \prod_{m \in \mathbb F_q^\times} m = \prod_{i = 1}^{q - 1} m_i = m_1 \cdot m_{q - 1} \cdot \prod_{i = 2}^{q - 2} m_i
+    = -1 \cdot \prod_{i = 2}^{\frac{q-1}{2}} m_i \cdot m_{q-i} = - \prod_{i = 2}^{\frac{q-1}{2}} 1 = -1 \]
+    So $A + B = 0$.
+
+    Otherwise if $p = 2$, then 
+    \[ \sum_{a \in \mathbb F_q} a = \sum_{i = 1}^q a_i = a_q + \sum_{i=1}^{q-1} a_i
+    = a_q + a_{q/2} \sum_{i = 1}^{\frac{q}{2} - 1} a_i + a_{q-i} = 0 + \frac{q}{2} + \sum_{i=1}^{\frac{q}{2} - 1} 0 = \frac{q}{2}  \]
+
+    \[ \prod_{m \in \mathbb F_q^\times} m = \prod_{i = 1}^{q-1} m_i = q_1 \prod_{i=2}^{q-1} m_i
+    = \prod_{i = 2}^{\frac{q}{2}} m_i \cdot m_{q-i+1} =  \prod_{i=2}^{\frac{q}{2}} 1 = 1  \]
+    So, $A + B = \frac{q}{2} + 1$
+  }
+
+  \qs{}{
+    Assume that $\chr(\mathbb F_q) \ne 2$. Prove that $\abs{\set{x^2 \mid x \in \mathbb F_q}} = (\abs{\mathbb F_q} + 1)/2$.
+  }
+  \sol{
+    Since $\chr(\mathbb F_q) \ne 2$, then $q$ is odd. As there is $q$ elements, then $x^2 = (q-x)^2$ for all $0 \le x < q$. 
+    Thus, $\abs{\set{x^2 \mid x \in \mathbb F_q}} \le (\abs{\mathbb F_q} + 1)/2$.
+
+    Now, if consider that the polynomial $x^2 - a$ where $a \in \set{x^2 \mid x \in \mathbb F_q}$ is reducible to 
+    $x^2 - a = (x - \alpha)(x + \alpha)$ as $x^2 - a$ is monic. This means that no other element, apart from $\alpha$ and $-\alpha$,
+    can be the root of $x^2 - a$, and thus, no other element $\beta$ would satisfy $\beta^2 = a$.
+
+    Thus, each of the element of $\set{ x^2 \mid x \in \mathbb F_q}$ corresponds to 2 mutually exclusive elements of $\mathbb F_q$, 
+    namely, $x$ and $-x$ (and no other elements).
+
+    This means that $\abs{\set{x^2 \mid x \in \mathbb F_q}} \ge \abs{\mathbb F_q}/2$
+    Hence, $\abs{\set{x^2 \mid x \in \mathbb F_q}} = (\abs{\mathbb F_q} + 1)/2$
+  }
+
+\end{document}
