@@ -14,6 +14,10 @@
 \DeclareMathOperator{\ob}{ob}
 \DeclareMathOperator{\Func}{Func}
 
+\newcommand{\Type}{\textbf{Type} }
+
+\newcommand{\code}[1]{\texttt{#1}}
+
 \begin{document}
 
 Many people might have heard about category theory before as the most pure or abstract branch of mathematics.
@@ -107,6 +111,63 @@ then $F(A), F(B)$ needs to be in $\D$. If there is an arrow $f: A \to B$ then $F
   \item Forgetful functor $F$ that sends any group $G$ to the underlying set $G$ is a functor from the category of groups to the category 
     of sets.
   \item Powerset is a functor from the category of sets to itself.
+\end{itemize}
+
+\section{For Programmers}
+For programmers, I recommend the book \textbf{Category Theory for Programmers} by Bartosz Milewski. It is an easy enough read. 
+Some of the content here will be based on the book. 
+I'm not trying to replace that (as it's impossible to) but this section will be mainly my intepretation, i.e. can be wrong, 
+and would be more like a note / summary on how I understand things.
+
+In context of programming. The \textit{only (for the most part)} category we care about is the category of types, write $\Type$. 
+The objects of $\Type$ are all posible types such as \code{bool}, \code{int}, or \code{char} but also includes more complex types 
+such as \code{list<int>}.
+
+Type is like set as it holds multiple possible values. \code{bool} can be thought of as a set $\set{\code{true}, \code{false}}$ and \code{int}
+can be thought of as the set of all integers for example.
+
+The arrow in the category of type is all the functions from one type to another. For example a function $\code{isPrime}$ is an arrow from 
+\code{int} to \code{bool} or a function \code{square} is an arrow from \code{int} to \code{int}. A function needs to be pure. 
+It needs to have no side effect, i.e. not modifier anything outside of the function scope.
+
+Confusingly or not, a function type like \code{int $\to$ bool} is a type, therefore is an object. 
+However, a member of \code{int $\to$ bool} such as \code{isPrime} is an arrow. 
+This is similar to \textbf{Set} as a set of functions is an object while a function is an arrow.
+
+\subsection{Functor}
+Since we only care about the category of type. The only functor we care about is the functor from \Type to \Type.
+Therefore, in this section all functor will be from \Type to \Type (as category) and we only need to say 2 things about a functor: 
+how it maps the objects (a type) and how it maps the arrows (a function).
+Obviously there is an identity functor, but there are many more.
+
+\begin{itemize}
+  \item \code{optional} is a functor (from \Type to \Type). 
+    \begin{verbatim}
+      template<typename T>
+      class optional<T> {
+        bool has_value = false;
+        T value;
+        optional () { has_value = false; value = {}; }
+        optional (T v) { has_value = true; value = v; }
+      };
+    \end{verbatim}
+    It send a type \code{T} to a new type \code{optional<T>}. 
+    How? given a value \code{x} of type \code{T}, we can have a value \code{optional<T> (x)}; 
+    For each arrow $f: T \to S$, we have corresponding $\code{optional<$f$>}:\code{optional<$T$>} \to \code{optional<$S$>}$.
+    such that it operates on the underlying value. We can define the function as 
+    \begin{verbatim}
+      auto optional_map (Function f) {
+        return [](optional<T> o) {
+          if (!o.has_value) return optional<S> (false);
+          return optional<S> (true, f(o.value));
+        };
+      }
+    \end{verbatim}
+    A bit ugly to try to fit this to C++ (I'm aware it will not compile).
+  \item \code{list} is another example. It maps object \code{T} to \code{list<T>} by simply make it a list. 
+    That means we can make a list of one element \code{[x]} when we have an element \code{x}. 
+    The functor also transform arrow. The way it does this is from \code{f: T $\to$ S} we have an arrow 
+    \code{list<T> $\to$ list<S>} that does the same thing to every element in the list.
 \end{itemize}
 
 \end{document}
