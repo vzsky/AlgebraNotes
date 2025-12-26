@@ -10,11 +10,13 @@
 
 \newcommand{\C}{\mathcal C}
 \newcommand{\D}{\mathcal D}
+\newcommand{\op}{\text{op}}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\ob}{ob}
 \DeclareMathOperator{\Func}{Func}
 
 \newcommand{\Type}{\textbf{Type} }
+\newcommand{\Set}{\textbf{Set} }
 
 \newcommand{\code}[1]{\texttt{#1}}
 
@@ -31,25 +33,29 @@ similarly. In the same way, you will not understand category if you don't unders
 have in common. I pick these three because it is to me the easiest one. The point is premature generalization is bad, and so is 
 learning category theory without enough example.
 
-\section{Definition}
-Let's start easy. I'll be sloppy and disregard all bullshits on the size of set and classes. 
-A category is a collection of objects and arrows. 
-Let $\C$ be a category. We usually write $A, B$ for objects and $f, g, h$ for arrows.
+\section{Category}
+\df{Category}{
+  Let's start easy. I'll be sloppy and disregard all bullshits on the size of set and classes. 
+  A category is a collection of objects and arrows. 
+  Let $\C$ be a category. We usually write $A, B$ for objects and $f, g, h$ for arrows.
 
-Arrows point from one object to another.
-Arrows will also compose and be associative. 
-That means if there are arrows $f, g$, there will be arrow $f \circ g$ and $(f \circ g) \circ h = f \circ (g \circ h)$.
-There will always be identity arrows pointing from an object to itself.
+  Arrows point from one object to another.
+  Arrows will also compose and be associative. 
+  That means if there are arrows $f, g$, there will be arrow $f \circ g$ and $(f \circ g) \circ h = f \circ (g \circ h)$.
+  There will always be identity arrows pointing from an object to itself.
 
-We then define $\ob(\C)$ to be the set of all objects in $\C$ and $\Hom_\C(A, B)$ as the set of all arrows 
-from $A$ to $B$ in category $\C$.
+  We then define $\ob(\C)$ to be the set of all objects in $\C$ and $\Hom_\C(A, B)$ as the set of all arrows 
+  from $A$ to $B$ in category $\C$.
+}
 
-\subsection{Example (sloppy)}
-\begin{itemize}
-  \item \textbf{A category of sets: } objects are all sets, arrows are function between one set to another.  
-  \item \textbf{A category of groups: } objects are all groups, arrows are group homomorphisms.
-  \item \textbf{A category of topologies: } objects are all top spaces, arrows are homeomorphisms.
-\end{itemize}
+\exmp{Example (sloppy)}
+{
+  \begin{itemize}
+    \item \textbf{A category of sets: } objects are all sets, arrows are function between one set to another.  
+    \item \textbf{A category of groups: } objects are all groups, arrows are group homomorphisms.
+    \item \textbf{A category of topologies: } objects are all top spaces, arrows are homeomorphisms.
+  \end{itemize}
+}
 
 Note that we can define a category of groups so that objects are all groups and arrows are function between the underlying set to another.
 This is a valid category but not a useful one since it's very similar to the category of set.
@@ -58,20 +64,35 @@ When $f: A \to B$ and $g: B \to A$ both exist in a category, the object $A$ and 
 For example, if there is a function from set $S$ to set $T$ and also from $T$ to $S$, then the two set has the same size. If there is 
 a homomorphism from group $G$ to $H$, then the two groups are isomorphism.
 
-\subsection{More Example}
-\begin{itemize}
-  \item \textbf{0: } A trivial category with no object, hence no arrows.
-  \item \textbf{1: } A category with one object and 1 identity arrow.
-  \item \textbf{2: } A category with two objects, 2 identity arrows and 1 arrow from one object to the other.
-\end{itemize}
+\exmp{More small examples}
+{
+  \begin{itemize}
+    \item \textbf{0: } A trivial category with no object, hence no arrows.
+    \item \textbf{1: } A category with one object and 1 identity arrow.
+    \item \textbf{2: } A category with two objects, 2 identity arrows and 1 arrow from one object to the other.
+  \end{itemize}
+}
 
 \exc{}{ 
   There is a \textit{unique} category with 3 objects (with no isomorphic objects). Describe it.
 }
 
+A lot of things are categories. If I want a category where objects are integers. I can do that by defining so with 
+no arrows (except for identity). That is a valid (but not useful) category. I can also draw arrows between all pairs 
+of integers, that is again valid, but not useful. I can draw arrows from $a \to b$ whenever $a \le b$. That is valid, 
+and can be a little more useful. I can also draw arrows from $a \to b$ whenever $a \vert b$ and that will be just a little 
+more interesting.
+
+Another interesting category is
+\df{Dual Category}{
+  Dual category of $\C$ is written $\C^\op$ has the same object as $\C$ but the direction of all arrows are swapped. 
+}
+
 \section{Functor}
-Functors are the morphism of category. Functor $F$ maps each object $A$ to $F(A)$ and maps each arrow $f$ to $F(f)$ so it's possible to 
-think of a functor as two functions tied together, one is the object function and the other is the arrow function.
+\df{Functor}{
+  Functors are the morphism of category. Functor $F$ maps each object $A$ to $F(A)$ and maps each arrow $f$ to $F(f)$ so it's possible to 
+  think of a functor as two functions tied together, one is the object function and the other is the arrow function.
+}
 
 Like group homomorphism, not all mapping is a functor. If there are objects $A, B \in \C$ and let the result category be $\D := F(\C)$, 
 then $F(A), F(B)$ needs to be in $\D$. If there is an arrow $f: A \to B$ then $F(f)$ must be from $F(A) \to F(B)$.
@@ -81,38 +102,113 @@ then $F(A), F(B)$ needs to be in $\D$. If there is an arrow $f: A \to B$ then $F
   $F(A)$ is an object in $F(\C)$ when $A$ is an object in $\C$ and $F(f)$ is an arrow in $F(\C)$ when $f$ is an arrow in $\C$. 
 }
 
-\subsection{Example}
-\begin{itemize}
-  \item $\Func(\textbf{1},\C)$ \textit{corresponds} to the $\ob(\C)$.
-    Since \textbf{1} has only one object, the object map will send that element to any object of $\C$. 
-    This means that picking any $A \in \ob(\C)$, there is a corresponding functor $F_A: O_1 \mapsto A$ and picking 
-    any $F \in \Func(\textbf{1}, \C)$, there is a corresponding object $F(O_1)$ in $\C$.
+\exmp{Example}
+{
+  \begin{itemize}
+    \item $\Func(\textbf{1},\C)$ \textit{corresponds} to the $\ob(\C)$.
+      Since \textbf{1} has only one object, the object map will send that element to any object of $\C$. 
+      This means that picking any $A \in \ob(\C)$, there is a corresponding functor $F_A: O_1 \mapsto A$ and picking 
+      any $F \in \Func(\textbf{1}, \C)$, there is a corresponding object $F(O_1)$ in $\C$.
 
-  \item $\Func(\textbf{2},\C)$ \textit{corresponds} to the set $\set{\text{arrow } f \text{ in }\C}$.
-    Similarly when picking any arrow $f: A \to B$ from $\C$, there is a corresponding functor $F_f$ such that 
-    \eqs{
-      F_f:& \textbf{2} \mapsto \C & \text{ as category }\\
-      F_f:& O_1 \mapsto A & \text{ as object } \\
-      F_f:& O_2 \mapsto B & \text{ as object } \\
-      F_f:& (O_1 \mapsto O_2) \mapsto f & \text{ as arrow }\\
-    }
-    Where $O_1$ and $O_2$ are two objects in $\textbf{2}$
-
-    Picking any functor $F$ from $\Func(\textbf{2}, \C)$, there is also a corresponding arrow $F(O_1 \mapsto O_2)$.
-
-\end{itemize}
+    \item $\Func(\textbf{2},\C)$ \textit{corresponds} to the set $\set{\text{arrow } f \text{ in }\C}$.
+      Similarly when picking any arrow $f: A \to B$ from $\C$, there is a corresponding functor $F_f$ such that 
+      \eqs{
+        F_f:& \quad \textbf{2} \mapsto \C & \text{ as category }\\
+        F_f:& \quad O_1 \mapsto A & \text{ as object } \\
+        F_f:& \quad O_2 \mapsto B & \text{ as object } \\
+        F_f:& \quad (O_1 \mapsto O_2) \mapsto f & \text{ as arrow }\\
+      }
+      Where $O_1$ and $O_2$ are two objects in $\textbf{2}$
+      Picking any functor $F$ from $\Func(\textbf{2}, \C)$, there is also a corresponding arrow $F(O_1 \mapsto O_2)$.
+    \item Forgetful functor $F$ that sends any group $G$ to the underlying set $G$ is a functor from the category of groups to the category 
+      of sets.
+    \item Powerset is a functor from the category of sets to itself.
+  \end{itemize}
+}
 
 \exc{}{ 
   Show that the functors from $\textbf{3}$ to $\C$ corresponds to all pairs of arrows in $\C$ that compose.
 }
 
-\subsection{More examples}
-\begin{itemize}
-  \item Forgetful functor $F$ that sends any group $G$ to the underlying set $G$ is a functor from the category of groups to the category 
-    of sets.
-  \item Powerset is a functor from the category of sets to itself.
-\end{itemize}
+\subsection{Contravariant functors}
+\df{Contravariant functors}{
+  A contravariant functor from $\C$ to $\D$ is a covariant functor from $\C^{op}$ to $\D$
+}
 
+Another way to say that is that contravariant functor is defined similarly to functor with a twist. 
+$F$ is a contravariant functor from $\C$ to $\D$ if it sends an object 
+from $\ob(\C)$ to $\ob(\D)$ and for each arrow $f: A \to B$, the result is $F(f): F(B) \to F(A)$. 
+
+The only different is that the order of arrow switch in the resulting category.
+
+Then there is one obvious example of contravariant functor, the dual functor. 
+\eqs{
+  F:& \quad \C \mapsto \C^\op & \text{as category} \\
+  F:& \quad A \mapsto A  & \text{as object} \\
+  F:& \quad (A \mapsto B) \mapsto (B \mapsto A)  & \text{as arrow} \\
+}
+
+\subsection{Hom Functors}
+Hom functor is a tricky functor that is interesting and very important.
+We have defined earlier that in a fixed category $\C$, $\Hom_\C(A, B)$ or sometimes just $\Hom(A, B)$ is the set 
+of all arrows from $A$ to $B$.
+
+Now, we can define $h_A(X) = \Hom(A, X)$ so that $h_A$ is a function that receive an object and returns a set. 
+Moreover, let $f$ be an arrow in $\C$ from $X$ to $Y$ and define $h_A(f)$ to be a function from $h_A(X)$ to $h_A(Y)$.
+
+Before actually defining those $h_A(f)$, let's see what we have. 
+
+We have $A$, $X$, and $Y$ as objects in $\C$. We have $h_A(X)$ as the set of all arrows from $A$ to $X$ and 
+similarly $f_A(Y)$ is the set of all arrows from $A$ to $Y$. What we know from the fact that $\C$ is a 
+category is that if we have an arrow from $X$ to $Y$, then composition of something in $h_A(X)$ with the arrow will give 
+us something in $h_A(Y)$.
+
+So we can define the function that way. Formally, 
+\eqs{
+  h_A(f):& &\Hom(A, X) &\to \Hom(A, Y) \\ 
+  & &a &\mapsto f \circ a
+}
+
+Now, as $h_A$ maps the object in $\C$ to a set and map arrows in $\C$ to a function (in an appropriate way), 
+we know that it is a functor.
+
+That was half the things. The other half is we also have $h_A^\op$ defined as $h_A^\op(X) = \Hom(X, A)$ and $h_A^\op(f) = (a \mapsto a \circ f)$. 
+This half is not a functor but it is in fact a contravariant functor (from $\C$ to \Set).
+
+I personally don't like the notation $h_A$ and $h_A^\op$ because it can be confusing sometimes. I find $\Hom(A, -)$ and $\Hom(-, A)$ 
+more intuitive.
+
+\section{Natural Transformation}
+Natural Transformation is the first tricky bit of category theory. I thought I understand what it is a few time before 
+actually understand what it is. 
+
+First thing you need to understand is the infamous phrase \textbf{\textit{diagram commutes}}. 
+\df{Diagram Commutes}{
+  It is said that a diagram commutes when the diagram is nice.
+}
+
+A natural transformation $\eta$ between two functors $F, G: \C \to \D$ is such that the following diagram commutes.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{nattrans.png}
+\end{figure}
+
+A natural transformation from $F: \C \to \D$ to $G: \C \to \D$ is induces (or is defined for) $\eta_A$ for all objects $A \in \C$.
+$\eta_A$ shows how to turn $F(A)$ to $G(A)$ in a way that respects the arrow map of $F$ and $G$.
+
+\rem{}{
+  I used to mistake natural transformation as functor of functor but it is not really so. A functor maps both objects and arrows but 
+  a natural transformation only care about mapping $F(\_)$ to $G(\_)$.
+}
+
+With natural transformation, we can construct a category of functor $\Func(\C, \D)$ where is objects are all functor from 
+$\C$ to $\D$ and the arrow from $F$ to $G$ exists for each natural transformation of $F$ and $G$.
+
+
+
+
+\newpage
 \section{For Programmers}
 For programmers, I recommend the book \textbf{Category Theory for Programmers} by Bartosz Milewski. It is an easy enough read. 
 Some of the content here will be based on the book. 
@@ -132,7 +228,7 @@ It needs to have no side effect, i.e. not modifier anything outside of the funct
 
 Confusingly or not, a function type like \code{int $\to$ bool} is a type, therefore is an object. 
 However, a member of \code{int $\to$ bool} such as \code{isPrime} is an arrow. 
-This is similar to \textbf{Set} as a set of functions is an object while a function is an arrow.
+This is similar to \Set as a set of functions is an object while a function is an arrow.
 
 \subsection{Functor}
 Since we only care about the category of type. The only functor we care about is the functor from \Type to \Type.
