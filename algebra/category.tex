@@ -5,6 +5,8 @@
 \input{../texheaders/preamble}
 \input{../texheaders/macros}
 
+\usepackage{float}
+
 \fancyhead[L]{Category Theory}
 \fancyhead[R]{note by \textbf{Touch Sungkawichai}}
 
@@ -14,6 +16,7 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\ob}{ob}
 \DeclareMathOperator{\Func}{Func}
+\DeclareMathOperator{\Nattran}{Nat}
 
 \newcommand{\Type}{\textbf{Type} }
 \newcommand{\Set}{\textbf{Set} }
@@ -176,7 +179,8 @@ That was half the things. The other half is we also have $h_A^\op$ defined as $h
 This half is not a functor but it is in fact a contravariant functor (from $\C$ to \Set).
 
 I personally don't like the notation $h_A$ and $h_A^\op$ because it can be confusing sometimes. I find $\Hom(A, -)$ and $\Hom(-, A)$ 
-more intuitive.
+more intuitive. Be careful that with this notation, for any arrow $f: X \to Y$, $\Hom(A, f)$ would be an arrow 
+in \Set from $\Hom(A, X)$ to $\Hom(A, Y)$ as defined earlier.
 
 \section{Natural Transformation}
 Natural Transformation is the first tricky bit of category theory. I thought I understand what it is a few time before 
@@ -189,7 +193,7 @@ First thing you need to understand is the infamous phrase \textbf{\textit{diagra
 
 A natural transformation $\eta$ between two functors $F, G: \C \to \D$ is such that the following diagram commutes.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{nattrans.png}
 \end{figure}
@@ -197,13 +201,94 @@ A natural transformation $\eta$ between two functors $F, G: \C \to \D$ is such t
 A natural transformation from $F: \C \to \D$ to $G: \C \to \D$ is induces (or is defined for) $\eta_A$ for all objects $A \in \C$.
 $\eta_A$ shows how to turn $F(A)$ to $G(A)$ in a way that respects the arrow map of $F$ and $G$.
 
+Again, a natural transformation $\eta$ specifies how to turn $F(A)$ to $G(A)$ for all $A$. Therefore if we want to define a 
+natural transformation, one way is to define $\eta_A$ for all $A$.
+
 \rem{}{
   I used to mistake natural transformation as functor of functor but it is not really so. A functor maps both objects and arrows but 
   a natural transformation only care about mapping $F(\_)$ to $G(\_)$.
 }
 
+\rem{}{
+  The blue arrow in the diagram is the induced natural transformation. That means it shows how $\eta$ maps object 
+  of $F(A)$ to $F(B)$. It is not necessary an arrow in $\D$.
+}
+
 With natural transformation, we can construct a category of functor $\Func(\C, \D)$ where is objects are all functor from 
 $\C$ to $\D$ and the arrow from $F$ to $G$ exists for each natural transformation of $F$ and $G$.
+
+Now, we denote $\Nattran(F, G)$ as the set of all natural transformations from $F$ to $G$. In other words, 
+\[ \Nattran(F, G) = \Hom_{\Func(\C, \D)}(F, G) \] given that $F, G$ are functors from $\C$ to $\D$.
+
+\section{Yoneda Lemma}
+
+Let $F$ be any functor from $\C$ to $\Set$. Notice that $\Hom(A, -)$ is also a functor from $\C$ to $\Set$. The surprising thing 
+will want to show now is that $F(A)$ \textit{corresponds} to $\Nattran(\Hom(A, -), F)$.
+
+Specifically, we want to show that there is a one to one relationship between $F(A)$ and $\Nattran(\Hom(A, -), F)$.
+That is for any element $u$ of $F(A)$, there is a unique natural transformation $\eta^u$ and for each 
+natural transformation $\eta$, there is a unique $u$. 
+
+To be clear, in this settings, $\C$ is some category, $F$ is a functor from $\C$ to $\Set$, $\Hom(A, -)$ as defined earlier is 
+also a functor from $\C$ to $\Set$. $A, X, Y$ are objects in $\C$ and $f$ is an arrow from $X$ to $Y$ in $\C$.
+
+Let's go back to the natural transformation definition above and put it in this context.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{yoneda_nattrans.png}
+\end{figure}
+
+Now this diagram should applies to any $X$, so we choose $X = A$. This will give us the following diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{yoneda_nattrans2.png}
+\end{figure}
+
+Notice that a natural transformation is the one making this diagram commute. We only need to care about the one on the right so 
+let's just highlight that like this.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{yoneda_set.png}
+\end{figure}
+
+On the right, we need that for any $u \in F(A)$, the corresponding element in $F(Y)$ needs to be $F(f)(u)$. On the left, 
+we know that $id \in \Hom(A, A)$ and the corresponding element in $\Hom(A, Y)$ is $\Hom(A, f) (id) = f$.
+
+There is nothing stopping us from combining the left and the right. So one legal definition of $\eta$ is the following:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{yoneda_def.png}
+\end{figure}
+Which is that $\eta^u_X(f) = F(f)(u)$
+
+This shows that for each $u$ we can define a natural transformation $\eta^u$. 
+Then for the other direction, if we have a natural transformation, $\eta$,
+we can also evaluate that at $\eta_A(id)$ to get the corresponding element in $F(A)$.
+
+The conclusion is that 
+$\Nattran(\Hom(A, -), F) \isom F(A)$
+\rem{}{
+  By repeating the same argument with contravariant functor, one can get
+  \[ \Nattran(\Hom(-, A), F) \isom F(A) \] for a contravariant functor $F$.
+}
+
+\subsection{Implications}
+Now is the point where my math knowledge is not enough to understand all the examples. 
+The main idea is that all of the information in $A$ is captured by the functor $\Hom(A, -)$.
+The object itself doesn't have any information outside of the relationship from the object to other objects.
+
+
+
+
+
+
+
+
+
+
 
 
 
